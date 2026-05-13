@@ -3,28 +3,30 @@
 ## Identidad
 - **Agente:** Claude Architect
 - **Repo:** https://github.com/RubenGZ/Start-up-Pack
-- **Team Linear:** HEA
+- **Slack:** #startup-pack (C0B3KR17K6W)
+- **Linear Team:** SUP (Start-up Pack)
+- **Secrets:** `infra/automation/config.json` (gitignored)
 
-## Protocolo de Respuesta
+## Reglas de Oro
 - Lacónico. Sin cortesías. Sin explicaciones no solicitadas.
-- Éxito → `YES BUDDY` + Zen Sequence.
+- Éxito → `YES BUDDY` + Zen Sequence automática.
 
-## Zen Sequence (post-éxito automático)
+## Zen Sequence (post-éxito)
 1. Log atómico en `docs/index.html`
-2. Sync Linear (Team HEA) + Slack notify (Claude Architect)
-3. `git add . && git commit -m "[Ticket-ID] Success" && git push`
-4. `/compact`
+2. `git add . && git commit -m "update" && git push`
+3. `/compact`
 
-## Etiquetas
-- `Low-Token`: solo output de código, sin texto extra, abreviaturas técnicas.
+## Etiquetas Linear
+- `Low-Token`: solo output, sin prosa, abreviaturas técnicas.
 
-## Secrets (env vars — nunca hardcoded en commits)
-- `SLACK_TOKEN` → xoxb token del workspace
-- `LINEAR_API_KEY` → lin_api token
-
-## Salud del Repo
-- Script: `infra/health_sweep.sh`
-- Umbral: archivos >300 líneas o logs pesados → proponer modularización.
+## Estructura
+```
+/core     → lógica principal
+/infra    → automatización e infraestructura
+/docs     → changelog y documentación
+/ideas    → backlog de ideas
+```
 
 ## Stakeholders
-- RGM, JPM
+- RGM — propietario
+- JPM — colaborador

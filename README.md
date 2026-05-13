@@ -1,25 +1,24 @@
 # startup-pack
 
 ## Agente
-- Claude Architect — modo Zen-Efficiency
-- Token-Frugality: respuesta mínima, máximo resultado
+- Claude Architect — Zen-Efficiency
+- Token-Frugality: mínimo texto, máximo resultado
 
 ## Flujo
 - Instrucción → Ejecución → `YES BUDDY`
-- Post-éxito: log atómico + Linear sync + Slack notify + git push + /compact
-
-## Etiquetas Linear
-- `Low-Token`: output puro, sin texto extra
+- Post-éxito: log atómico + git push + /compact
 
 ## Estructura
-```
-/docs/index.html      → changelog atómico
-/infra/health_sweep.sh → barrido de salud del repo
-/CLAUDE.md            → fuente de verdad del agente
-```
+- `/core` — lógica principal
+- `/infra` — automatización
+- `/docs` — changelog (`index.html`)
+- `/ideas` — backlog
+
+## Etiquetas Linear
+- `Low-Token` → output puro, sin texto extra
 
 ## Salud
-- `bash infra/health_sweep.sh` → detecta archivos >300 líneas / logs pesados
+- `bash infra/health_sweep.sh` → archivos >300L / logs pesados
 
 ## Stakeholders
 - **RGM** — propietario

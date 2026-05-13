@@ -5,10 +5,19 @@
 - **Repo:** https://github.com/RubenGZ/Start-up-Pack
 - **Slack:** #startup-pack (C0B3KR17K6W)
 - **Linear Team:** SUP (Start-up Pack) — workspace: linear.app/start-up-pack
-- **Linear API:** usar key de `config.json` directamente (MCP conectado a Health Stack, no SUP)
+- **Linear API:** MCP local via `.mcp.json` (gitignored) → apunta a SUP workspace directamente
 - **Linear Team ID:** `64e046dd-9eab-4af6-b6e5-1c10a43a85e1`
 - **Linear Project ID:** `aa7d98d4-121c-4aeb-b5ca-5d4fa2faabd1`
-- **Secrets:** `infra/automation/config.json` (gitignored)
+- **Secrets:** `infra/automation/config.json` + `.mcp.json` (ambos gitignored)
+
+## Patrón MCP per-proyecto
+Cada proyecto tiene su propio `.mcp.json` (gitignored) con el API key de su workspace:
+```bash
+cp .mcp.json.example .mcp.json
+# editar LINEAR_API_KEY con el key del workspace correcto
+```
+El plugin global `linear@claude-plugins-official` está deshabilitado en `.claude/settings.json`.
+Así cada proyecto usa su propio Linear workspace sin interferencia.
 
 ## Reglas de Oro
 - Lacónico. Sin cortesías. Sin lenguaje natural.

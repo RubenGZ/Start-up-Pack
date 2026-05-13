@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@linear/mcp@latest"],
+      "env": {
+        "LINEAR_API_KEY": "lin_api_XXXXXXXXXXXXXXXXXXXXXXXX"
+      }
+    }
+  }
+}

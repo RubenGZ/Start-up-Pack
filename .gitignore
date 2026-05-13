@@ -1,5 +1,6 @@
 infra/automation/config.json
 .claude/settings.local.json
+.mcp.json
 node_modules/
 *.env
 .DS_Store

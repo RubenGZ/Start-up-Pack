@@ -52,6 +52,12 @@
           "status": "stable",
           "migrations": ["0010_seed.sql"]
         },
+        "rate-limit": {
+          "path": "blueprints/rate-limit/",
+          "files": ["rate_limit.sql"],
+          "status": "stable",
+          "migrations": ["0011_rate_limit.sql"]
+        },
         "utils": {
           "path": "blueprints/utils/",
           "files": ["helpers.sql"],

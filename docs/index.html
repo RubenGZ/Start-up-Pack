@@ -367,7 +367,7 @@
           <tr>
             <td style="padding-left:1.25rem">
               <div class="mod-name">core/migrations</div>
-              <div class="mod-path">core/migrations/ — runner.sh + 10 sql versionadas</div>
+              <div class="mod-path">core/migrations/ — runner.sh + 11 sql versionadas</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">Infra</td>
             <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
@@ -453,6 +453,14 @@
           </div>
           <div class="rm-id">SUP-7</div>
         </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-done">✅</div>
+          <div style="flex:1">
+            <div class="rm-label">Rate limiting por org</div>
+            <div class="rm-sub">blueprints/rate-limit/ — ventana deslizante + check_rate_limit()</div>
+          </div>
+          <div class="rm-id">SUP-8</div>
+        </div>
       </div>
     </div>
 
@@ -460,10 +468,15 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">7 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">8 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-8</span>
+            <span class="log-text">rate_limit_config + rate_limit_counters + check_rate_limit() — ventana deslizante por plan/org/endpoint</span>
+            <span class="log-ts">2026-05-13</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-sup5">SUP-7</span>
             <span class="log-text">seed.sql — demo org + admin@demo.com + free plan subscription (idempotente, UUIDs fijos)</span>

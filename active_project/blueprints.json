@@ -1,5 +1,5 @@
 {
   "project": "Start-up Pack (Hydra Base)",
   "injected_at": "2026-05-13T00:00:00Z",
-  "modules": ["base", "auth", "users", "billing", "health-base", "seed", "utils"]
+  "modules": ["base", "auth", "users", "billing", "health-base", "seed", "rate-limit", "utils"]
 }

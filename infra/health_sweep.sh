@@ -1,7 +1,7 @@
 #!/bin/bash
 # health_sweep.sh — detecta archivos pesados y logs que ensucian el contexto
 
-THRESHOLD=300
+THRESHOLD=250
 ROOT="${1:-.}"
 ISSUES=0
 

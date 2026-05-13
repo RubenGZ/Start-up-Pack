@@ -9,12 +9,16 @@
 - [ ] Notificaciones in-app + email
 
 ## Infraestructura
-- [ ] CI/CD pipeline (GitHub Actions)
-- [ ] Migraciones DB con versioning (Flyway o custom)
-- [ ] Seed data para desarrollo local
-- [ ] Health check endpoint `/health`
-- [ ] Rate limiting por org
-- [ ] Logs estructurados (JSON)
+- [x] CI/CD pipeline (GitHub Actions) — `ci.yml` + `notify.yml`
+- [x] Migraciones DB con versioning — `runner.sh` + 13 sql versionadas
+- [x] Seed data para desarrollo local — `blueprints/seed/seed.sql` (SUP-7)
+- [x] Health check endpoint `/health` — `blueprints/health-base/health.sql` (SUP-6)
+- [x] Rate limiting por org — `blueprints/rate-limit/` + cleanup (SUP-8)
+- [x] Logs estructurados (JSON) — `blueprints/audit/audit.sql` (SUP-9)
+- [ ] Integration tests en CI (PostgreSQL real) — CI job `integration-test`
+- [ ] Rollback strategy para migrations (down scripts)
+- [ ] pg_cron scheduler para cleanup_expired_auth() y cleanup_rate_limit_counters()
+- [ ] Particionado de audit_log por mes (cuando volumen > 1M rows)
 
 ## Integraciones
 - [ ] Stripe webhooks handler

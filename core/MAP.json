@@ -54,9 +54,9 @@
         },
         "rate-limit": {
           "path": "blueprints/rate-limit/",
-          "files": ["rate_limit.sql"],
+          "files": ["rate_limit.sql", "rate_limit_cleanup.sql"],
           "status": "stable",
-          "migrations": ["0011_rate_limit.sql"]
+          "migrations": ["0011_rate_limit.sql", "0013_cleanup.sql"]
         },
         "audit": {
           "path": "blueprints/audit/",

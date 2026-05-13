@@ -7,7 +7,7 @@ ISSUES=0
 
 echo "=== HEALTH SWEEP ==="
 
-# Archivos con más de $THRESHOLD líneas
+# Archivos con más de $THRESHOLD líneas (incluye .sql)
 echo "--- Archivos >$THRESHOLD líneas ---"
 while IFS= read -r -d '' file; do
   lines=$(wc -l < "$file")
@@ -15,7 +15,10 @@ while IFS= read -r -d '' file; do
     echo "  [$lines L] $file → MODULARIZAR"
     ((ISSUES++))
   fi
-done < <(find "$ROOT" -type f \( -name "*.js" -o -name "*.ts" -o -name "*.py" -o -name "*.sh" -o -name "*.md" \) ! -path "*/.git/*" ! -path "*/node_modules/*" -print0)
+done < <(find "$ROOT" -type f \( \
+  -name "*.js" -o -name "*.ts" -o -name "*.py" \
+  -o -name "*.sh" -o -name "*.md" -o -name "*.sql" \
+  \) ! -path "*/.git/*" ! -path "*/node_modules/*" -print0)
 
 # Logs pesados (>1MB)
 echo "--- Logs pesados (>1MB) ---"

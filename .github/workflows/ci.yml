@@ -65,12 +65,64 @@ jobs:
           for f in CLAUDE.md README.md .gitignore docs/index.html inject.sh \
                    core/MAP.json \
                    core/infra/health_sweep.sh core/automation/zen_sequence.sh \
+                   core/automation/log_append.sh core/automation/config.json.example \
                    core/migrations/runner.sh \
                    blueprints/base/000_init.sql blueprints/base/004_schema_versions.sql \
                    blueprints/auth/auth.flow.sql blueprints/auth/oauth.service.sql \
                    blueprints/users/001_users.sql blueprints/billing/billing.service.sql \
+                   blueprints/health-base/health.sql \
+                   blueprints/seed/seed.sql \
+                   blueprints/rate-limit/rate_limit.sql \
+                   blueprints/rate-limit/rate_limit_cleanup.sql \
+                   blueprints/audit/audit.sql \
                    blueprints/utils/helpers.sql \
                    active_project/blueprints.json \
                    ideas/backlog.md; do
             [ -f "$f" ] && echo "✅ $f" || (echo "❌ $f MISSING" && exit 1)
           done
+
+  integration-test:
+    name: Integration test (PostgreSQL real)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: hydra_test
+          POSTGRES_USER: hydra
+          POSTGRES_PASSWORD: hydra
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install psql client
+        run: sudo apt-get install -y postgresql-client
+      - name: Run all migrations
+        env:
+          DATABASE_URL: postgres://hydra:hydra@localhost:5432/hydra_test
+        run: bash core/migrations/runner.sh
+      - name: Smoke test — health_check()
+        env:
+          PGPASSWORD: hydra
+        run: |
+          result=$(psql -h localhost -U hydra -d hydra_test -t -c "SELECT health_check()->'status';")
+          echo "health_check status: $result"
+          echo "$result" | grep -q '"ok"' || (echo "ERROR: health_check failed" && exit 1)
+      - name: Smoke test — check_rate_limit()
+        env:
+          PGPASSWORD: hydra
+        run: |
+          result=$(psql -h localhost -U hydra -d hydra_test -t -c \
+            "SELECT check_rate_limit('00000000-0000-0000-0000-000000000001'::UUID, 'test/endpoint')->'allowed';")
+          echo "check_rate_limit allowed: $result"
+          echo "$result" | grep -q 'true' || (echo "ERROR: rate limit check failed" && exit 1)
+      - name: Smoke test — run_all_cleanups()
+        env:
+          PGPASSWORD: hydra
+        run: |
+          psql -h localhost -U hydra -d hydra_test -c "SELECT run_all_cleanups();"

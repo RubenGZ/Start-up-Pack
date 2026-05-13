@@ -1,6 +1,6 @@
 #!/bin/bash
 # inject.sh — Hydra Blueprint Injector
-# Uso: bash inject.sh [--modules auth,users,billing,health-base,utils] [--reset]
+# Uso: bash inject.sh [--modules auth,users,billing,health-base,seed,rate-limit,audit,utils] [--reset]
 # Clona blueprints seleccionados hacia active_project/
 
 set -euo pipefail
@@ -10,7 +10,7 @@ BLUEPRINTS="$REPO_ROOT/blueprints"
 ACTIVE="$REPO_ROOT/active_project"
 CONFIG="$ACTIVE/blueprints.json"
 
-DEFAULT_MODULES="base,auth,users,billing,utils"
+DEFAULT_MODULES="base,auth,users,billing,health-base,seed,rate-limit,audit,utils"
 MODULES="${DEFAULT_MODULES}"
 RESET=false
 
@@ -20,7 +20,7 @@ for arg in "$@"; do
     --reset)     RESET=true ;;
     --help)
       echo "Uso: bash inject.sh [--modules=mod1,mod2,...] [--reset]"
-      echo "Módulos disponibles: base, auth, users, billing, health-base, utils"
+      echo "Módulos disponibles: base, auth, users, billing, health-base, seed, rate-limit, audit, utils"
       exit 0 ;;
   esac
 done
@@ -67,6 +67,15 @@ for mod in "${MOD_LIST[@]}"; do
     health-base)
       cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
       ;;
+    seed)
+      cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas — dev only)" || echo "SKIP"
+      ;;
+    rate-limit)
+      cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
+      ;;
+    audit)
+      cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
+      ;;
     utils)
       cp "$SRC"/*.sql "$ACTIVE/utils/" 2>/dev/null && echo "OK (utils)" || echo "SKIP"
       ;;
@@ -78,9 +87,12 @@ for mod in "${MOD_LIST[@]}"; do
   INJECTED+=("$mod")
 done
 
-# Actualizar blueprints.json
+# Preservar campo "project" del blueprints.json existente
+PROJ_NAME=$([ -f "$CONFIG" ] && jq -r '.project // "Hydra Project"' "$CONFIG" 2>/dev/null || echo "Hydra Project")
+
 cat > "$CONFIG" <<EOF
 {
+  "project": "${PROJ_NAME}",
   "injected_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "modules": [$(printf '"%s",' "${INJECTED[@]}" | sed 's/,$//')]
 }

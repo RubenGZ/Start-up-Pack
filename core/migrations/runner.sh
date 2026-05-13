@@ -1,6 +1,7 @@
 #!/bin/bash
 # runner.sh — migrations versionadas para startup-pack
 # Uso: DATABASE_URL=postgres://... bash runner.sh [--dry-run]
+# IMPORTANTE: ejecutar desde la raíz del repo para que \i resuelva correctamente
 
 set -euo pipefail
 
@@ -32,7 +33,8 @@ TOTAL=0
 PENDING=0
 FAILED=0
 
-for FILE in $(ls "$MIGRATIONS_DIR"/*.sql 2>/dev/null | sort); do
+# Fix: usar find + sort en lugar de ls en for loop (safe con espacios en paths)
+while IFS= read -r FILE; do
   FILENAME=$(basename "$FILE")
   VERSION="${FILENAME%%_*}"
   NAME="${FILENAME%%.sql}"
@@ -65,7 +67,7 @@ for FILE in $(ls "$MIGRATIONS_DIR"/*.sql 2>/dev/null | sort); do
     echo "ERROR: falló $FILENAME — abortando" >&2
     exit 1
   fi
-done
+done < <(find "$MIGRATIONS_DIR" -maxdepth 1 -name "*.sql" | sort)
 
 echo ""
 echo "=== Resultado: $TOTAL total | $PENDING aplicadas | $FAILED fallidas ==="

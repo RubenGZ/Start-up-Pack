@@ -14,7 +14,7 @@ if [[ -z "$DB_URL" ]]; then
 fi
 
 MIGRATIONS_DIR="$(dirname "$0")/sql"
-SCHEMA_SQL="$(dirname "$0")/../../core/schemas/004_schema_versions.sql"
+SCHEMA_SQL="$(dirname "$0")/../../blueprints/base/004_schema_versions.sql"
 
 psql() { command psql "$DB_URL" "$@"; }
 

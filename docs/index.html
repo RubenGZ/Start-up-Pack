@@ -1,14 +1,448 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>startup-pack · changelog</title>
-<style>body{font-family:monospace;background:#0d0d0d;color:#00ff88;padding:2rem}h1{font-size:1rem;margin-bottom:1rem}ul{list-style:none;padding:0}li{border-left:2px solid #00ff8844;padding:.25rem .75rem;margin:.25rem 0;font-size:.85rem}.ts{color:#555;margin-right:.5rem}</style>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>startup-pack · mission control</title>
+<style>
+  :root {
+    --bg:       #080b10;
+    --surface:  #0d1117;
+    --border:   #1e2a38;
+    --accent:   #00e5a0;
+    --accent2:  #3b82f6;
+    --accent3:  #a855f7;
+    --warn:     #f59e0b;
+    --text:     #c9d1d9;
+    --muted:    #4a5568;
+    --dim:      #2d3748;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 13px;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-left { display: flex; align-items: center; gap: 1rem; }
+  .logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px; color: #000;
+  }
+  .title { font-size: 1.1rem; font-weight: 700; color: #fff; letter-spacing: -.5px; }
+  .subtitle { color: var(--muted); font-size: 0.75rem; margin-top: 2px; }
+  .badge {
+    padding: 2px 10px; border-radius: 20px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: .5px;
+  }
+  .badge-live { background: #00e5a01a; color: var(--accent); border: 1px solid #00e5a033; }
+  .badge-zen  { background: #a855f71a; color: var(--accent3); border: 1px solid #a855f733; }
+
+  /* LINKS */
+  .links { display: flex; gap: .75rem; align-items: center; }
+  .link {
+    display: flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--muted); text-decoration: none;
+    font-size: 0.72rem; transition: all .15s;
+  }
+  .link:hover { border-color: var(--accent); color: var(--accent); }
+  .link-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* STATS GRID */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    position: relative; overflow: hidden;
+  }
+  .stat::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+  }
+  .stat.green::after { background: linear-gradient(90deg, var(--accent), transparent); }
+  .stat.blue::after  { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .stat.purple::after{ background: linear-gradient(90deg, var(--accent3), transparent); }
+  .stat.amber::after { background: linear-gradient(90deg, var(--warn), transparent); }
+  .stat-label { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: .8px; }
+  .stat-value { font-size: 1.8rem; font-weight: 700; color: #fff; line-height: 1.2; margin: .3rem 0; }
+  .stat-sub   { color: var(--muted); font-size: 0.7rem; }
+
+  /* MAIN GRID */
+  .grid { display: grid; grid-template-columns: 1fr 340px; gap: 1rem; }
+
+  /* PANELS */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-title { color: #fff; font-weight: 600; font-size: .8rem; letter-spacing: .3px; }
+  .panel-body { padding: 1rem 1.25rem; }
+
+  /* MODULES TABLE */
+  .modules { width: 100%; border-collapse: collapse; }
+  .modules th {
+    text-align: left; color: var(--muted);
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: .7px;
+    padding: .4rem .75rem; border-bottom: 1px solid var(--border);
+  }
+  .modules td { padding: .55rem .75rem; border-bottom: 1px solid #0d1117; font-size: .78rem; }
+  .modules tr:last-child td { border-bottom: none; }
+  .modules tr:hover td { background: #0d111720; }
+  .mod-name { color: #fff; font-weight: 500; }
+  .mod-path { color: var(--muted); font-size: .7rem; margin-top: 1px; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 12px; font-size: .68rem; font-weight: 600;
+  }
+  .s-done   { background: #00e5a015; color: var(--accent);  border: 1px solid #00e5a030; }
+  .s-wip    { background: #f59e0b15; color: var(--warn);    border: 1px solid #f59e0b30; }
+  .s-next   { background: #3b82f615; color: var(--accent2); border: 1px solid #3b82f630; }
+  .s-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .mod-lines { color: var(--muted); text-align: right; font-size: .72rem; }
+
+  /* LOG */
+  .log-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .log-item {
+    display: flex; gap: .75rem;
+    padding: .6rem .75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #0a0e14;
+    align-items: flex-start;
+  }
+  .log-item:hover { border-color: var(--dim); }
+  .log-tag {
+    font-size: .65rem; font-weight: 700; padding: 1px 7px;
+    border-radius: 4px; white-space: nowrap; margin-top: 1px;
+    letter-spacing: .4px;
+  }
+  .tag-init   { background: #1e2a38; color: #8b9eb0; }
+  .tag-sup4   { background: #3b82f620; color: var(--accent2); }
+  .tag-sup5   { background: #a855f720; color: var(--accent3); }
+  .log-text   { color: var(--text); line-height: 1.4; font-size: .75rem; flex: 1; }
+  .log-ts     { color: var(--muted); font-size: .65rem; white-space: nowrap; margin-top: 2px; }
+
+  /* ROADMAP */
+  .roadmap-item {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .55rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .roadmap-item:last-child { border-bottom: none; }
+  .rm-icon {
+    width: 26px; height: 26px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0;
+  }
+  .rm-done   { background: #00e5a020; }
+  .rm-active { background: #f59e0b20; }
+  .rm-next   { background: #1e2a38; }
+  .rm-label  { color: #fff; font-size: .75rem; font-weight: 500; flex: 1; }
+  .rm-sub    { color: var(--muted); font-size: .67rem; }
+  .rm-id     { color: var(--muted); font-size: .67rem; font-weight: 600; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--muted); font-size: .68rem;
+  }
+  .footer-agent { display: flex; align-items: center; gap: .5rem; }
+  .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .3; }
+  }
+</style>
 </head>
 <body>
-<h1>startup-pack · atomic log</h1>
-<ul id="log">
-  <li><span class="ts">2026-05-13</span> INIT — repo estructurado, CLAUDE.md, README, health_sweep, docs</li>
-  <li><span class="ts">2026-05-13</span> SUP-4 — auth.flow.sql: request_magic_link, verify_magic_link, validate_session, revoke_session</li>
-  <li><span class="ts">2026-05-13</span> SUP-4 — oauth.service.sql: oauth_accounts table + upsert_oauth_user (Google/GitHub/Microsoft)</li>
-</ul>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">SP</div>
+    <div>
+      <div class="title">startup-pack</div>
+      <div class="subtitle">mission control · RGM / JPM</div>
+    </div>
+    <span class="badge badge-live">LIVE</span>
+    <span class="badge badge-zen">ZEN-MODE</span>
+  </div>
+  <div class="links">
+    <a class="link" href="https://github.com/RubenGZ/Start-up-Pack" target="_blank">
+      <span class="link-dot" style="background:#6e7681"></span> GitHub
+    </a>
+    <a class="link" href="https://linear.app/start-up-pack" target="_blank">
+      <span class="link-dot" style="background:#5e6ad2"></span> Linear
+    </a>
+    <a class="link" href="https://slack.com" target="_blank">
+      <span class="link-dot" style="background:#e8b94a"></span> Slack
+    </a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat green">
+    <div class="stat-label">SQL Modules</div>
+    <div class="stat-value">7</div>
+    <div class="stat-sub">schemas + services + utils</div>
+  </div>
+  <div class="stat blue">
+    <div class="stat-label">Auth Functions</div>
+    <div class="stat-value">6</div>
+    <div class="stat-sub">magic link · oauth · session</div>
+  </div>
+  <div class="stat purple">
+    <div class="stat-label">CI/CD Jobs</div>
+    <div class="stat-value">4</div>
+    <div class="stat-sub">sweep · lint · validate · notify</div>
+  </div>
+  <div class="stat amber">
+    <div class="stat-label">Context Rule</div>
+    <div class="stat-value">250L</div>
+    <div class="stat-sub">max lines per file</div>
+  </div>
+</div>
+
+<!-- MAIN GRID -->
+<div class="grid">
+
+  <!-- LEFT: MODULES -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Módulos del núcleo</span>
+      <span style="color:var(--muted);font-size:.7rem">core/ · 7 archivos</span>
+    </div>
+    <div style="padding: .5rem 0;">
+      <table class="modules">
+        <thead>
+          <tr>
+            <th style="padding-left:1.25rem">Módulo</th>
+            <th>Estado</th>
+            <th style="text-align:right;padding-right:1.25rem">Líneas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">000_init</div>
+              <div class="mod-path">core/schemas/000_init.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">~20L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">001_users</div>
+              <div class="mod-path">core/schemas/001_users.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">18L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">002_organizations</div>
+              <div class="mod-path">core/schemas/002_organizations.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">~30L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">003_subscriptions</div>
+              <div class="mod-path">core/schemas/003_subscriptions.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">~25L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">auth.service + auth.flow</div>
+              <div class="mod-path">core/services/auth.*.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">33 + 84L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">oauth.service</div>
+              <div class="mod-path">core/services/oauth.service.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">78L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">billing.service</div>
+              <div class="mod-path">core/services/billing.service.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">32L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">helpers</div>
+              <div class="mod-path">core/utils/helpers.sql</div>
+            </td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">32L</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">migrations runner</div>
+              <div class="mod-path">infra/migrations/</div>
+            </td>
+            <td><span class="status-pill s-next"><span class="s-dot"></span>SUP-5</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">—</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">health endpoint</div>
+              <div class="mod-path">core/api/health.sql</div>
+            </td>
+            <td><span class="status-pill s-next"><span class="s-dot"></span>SUP-6</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div style="display:flex;flex-direction:column;gap:1rem;">
+
+    <!-- ROADMAP -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Roadmap</span>
+        <span style="color:var(--muted);font-size:.7rem">SUP sprint</span>
+      </div>
+      <div class="panel-body">
+        <div class="roadmap-item">
+          <div class="rm-icon rm-done">✅</div>
+          <div style="flex:1">
+            <div class="rm-label">Repo + CI/CD</div>
+            <div class="rm-sub">GitHub Actions, health sweep, notify</div>
+          </div>
+          <div class="rm-id">SUP-1</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-done">✅</div>
+          <div style="flex:1">
+            <div class="rm-label">Core schemas</div>
+            <div class="rm-sub">users, orgs, subscriptions</div>
+          </div>
+          <div class="rm-id">SUP-2/3</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-done">✅</div>
+          <div style="flex:1">
+            <div class="rm-label">Auth flow</div>
+            <div class="rm-sub">magic link + OAuth Google</div>
+          </div>
+          <div class="rm-id">SUP-4</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-active">⚡</div>
+          <div style="flex:1">
+            <div class="rm-label">DB Migrations</div>
+            <div class="rm-sub">versioned runner</div>
+          </div>
+          <div class="rm-id">SUP-5</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-next">○</div>
+          <div style="flex:1">
+            <div class="rm-label">Health endpoint</div>
+            <div class="rm-sub">/health check</div>
+          </div>
+          <div class="rm-id">SUP-6</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-next">○</div>
+          <div style="flex:1">
+            <div class="rm-label">Onboarding flow</div>
+            <div class="rm-sub">org setup wizard</div>
+          </div>
+          <div class="rm-id">SUP-7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOG -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Atomic log</span>
+        <span style="color:var(--muted);font-size:.7rem">3 entradas</span>
+      </div>
+      <div class="panel-body">
+        <ul class="log-list">
+          <li class="log-item">
+            <span class="log-tag tag-sup4">SUP-4</span>
+            <span class="log-text">oauth.service.sql — oauth_accounts + upsert_oauth_user</span>
+            <span class="log-ts">2026-05-13</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup4">SUP-4</span>
+            <span class="log-text">auth.flow.sql — magic link, session, validate, revoke</span>
+            <span class="log-ts">2026-05-13</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-init">INIT</span>
+            <span class="log-text">Repo estructurado — CLAUDE.md, CI/CD, health sweep, docs</span>
+            <span class="log-ts">2026-05-13</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-agent">
+    <div class="pulse"></div>
+    Claude Architect · Zen-Efficiency · 250L rule
+  </div>
+  <div>startup-pack · RGM / JPM · 2026</div>
+</div>
+
 </body>
 </html>

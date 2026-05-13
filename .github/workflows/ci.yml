@@ -34,6 +34,27 @@ jobs:
             fi
           done
 
+  validate-migrations:
+    name: Validate migration sequence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check migrations are ordered and non-empty
+        run: |
+          PREV=0
+          for f in $(ls infra/migrations/sql/*.sql 2>/dev/null | sort); do
+            NUM=$(basename "$f" | grep -o '^[0-9]*' | sed 's/^0*//')
+            [ -z "$NUM" ] && NUM=0
+            if [ "$NUM" -le "$PREV" ]; then
+              echo "ERROR: secuencia rota en $f (esperado > $PREV)"
+              exit 1
+            fi
+            lines=$(wc -l < "$f")
+            [ "$lines" -eq 0 ] && echo "ERROR: $f vacío" && exit 1
+            echo "  ✅ $f (${lines}L)"
+            PREV=$NUM
+          done
+
   validate-structure:
     name: Validate repo structure
     runs-on: ubuntu-latest
@@ -43,6 +64,9 @@ jobs:
         run: |
           for f in CLAUDE.md README.md .gitignore docs/index.html \
                    infra/health_sweep.sh infra/automation/zen_sequence.sh \
-                   core/schemas/000_init.sql ideas/backlog.md; do
+                   infra/migrations/runner.sh \
+                   core/schemas/000_init.sql core/schemas/004_schema_versions.sql \
+                   core/services/auth.flow.sql core/services/oauth.service.sql \
+                   ideas/backlog.md; do
             [ -f "$f" ] && echo "✅ $f" || (echo "❌ $f MISSING" && exit 1)
           done

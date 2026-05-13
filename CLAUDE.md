@@ -9,11 +9,11 @@
 
 ## Reglas de Oro
 - Lacónico. Sin cortesías. Sin lenguaje natural.
-- Éxito → 1 línea atómica + Next Step (≤5 palabras) → `YES BUDDY` → Zen Sequence.
+- Éxito → 1 línea atómica + % contexto + Next Step (≤5 palabras) → `YES BUDDY` → Zen Sequence.
 
 ## Formato de Respuesta
 ```
-[DONE] <qué se ejecutó> | Next: <≤5 palabras>
+[DONE] <qué se ejecutó> | ctx: X% | Next: <≤5 palabras>
 YES BUDDY
 ```
 
@@ -21,6 +21,15 @@ YES BUDDY
 1. Log atómico en `docs/index.html`
 2. `git add . && git commit -m "update" && git push`
 3. `/compact`
+
+## Smart-Context (Gestión Dinámica)
+- Antes de iniciar tarea: `du -h <módulo>` para evaluar tamaño.
+- Si módulo > 50% del umbral de auto-compactado → activar **Surgical-Reading**: leer solo definiciones de funciones, no cuerpos de código.
+
+## Modularidad Pura
+- Archivos: máximo **250 líneas**.
+- Si un archivo supera 250L → refactorizar en submódulos inmediatamente.
+- Propósito: consumo de tokens bajo por diseño, independiente del tamaño total del proyecto.
 
 ## Etiquetas Linear
 - `Low-Token`: solo output, sin prosa, abreviaturas técnicas.

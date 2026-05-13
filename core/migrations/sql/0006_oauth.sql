@@ -1,2 +1,2 @@
 -- 0006_oauth — cuentas OAuth providers
-\i core/services/oauth.service.sql
+\i blueprints/auth/oauth.service.sql

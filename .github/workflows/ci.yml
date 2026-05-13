@@ -14,8 +14,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run health sweep
         run: |
-          chmod +x infra/health_sweep.sh
-          bash infra/health_sweep.sh .
+          chmod +x core/infra/health_sweep.sh
+          bash core/infra/health_sweep.sh .
         continue-on-error: false
 
   lint-sql:
@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check SQL files exist and are non-empty
         run: |
-          find core/ -name "*.sql" | while read f; do
+          find blueprints/ core/migrations/sql/ -name "*.sql" 2>/dev/null | while read f; do
             lines=$(wc -l < "$f")
             echo "  $f → ${lines}L"
             if [ "$lines" -gt 250 ]; then
@@ -42,7 +42,7 @@ jobs:
       - name: Check migrations are ordered and non-empty
         run: |
           PREV=0
-          for f in $(ls infra/migrations/sql/*.sql 2>/dev/null | sort); do
+          for f in $(ls core/migrations/sql/*.sql 2>/dev/null | sort); do
             NUM=$(basename "$f" | grep -o '^[0-9]*' | sed 's/^0*//')
             [ -z "$NUM" ] && NUM=0
             if [ "$NUM" -le "$PREV" ]; then
@@ -62,11 +62,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check required files
         run: |
-          for f in CLAUDE.md README.md .gitignore docs/index.html \
-                   infra/health_sweep.sh infra/automation/zen_sequence.sh \
-                   infra/migrations/runner.sh \
-                   core/schemas/000_init.sql core/schemas/004_schema_versions.sql \
-                   core/services/auth.flow.sql core/services/oauth.service.sql \
+          for f in CLAUDE.md README.md .gitignore docs/index.html inject.sh \
+                   core/MAP.json \
+                   core/infra/health_sweep.sh core/automation/zen_sequence.sh \
+                   core/migrations/runner.sh \
+                   blueprints/base/000_init.sql blueprints/base/004_schema_versions.sql \
+                   blueprints/auth/auth.flow.sql blueprints/auth/oauth.service.sql \
+                   blueprints/users/001_users.sql blueprints/billing/billing.service.sql \
+                   blueprints/utils/helpers.sql \
+                   active_project/blueprints.json \
                    ideas/backlog.md; do
             [ -f "$f" ] && echo "✅ $f" || (echo "❌ $f MISSING" && exit 1)
           done

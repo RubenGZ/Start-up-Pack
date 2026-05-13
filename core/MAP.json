@@ -1,0 +1,83 @@
+{
+  "hydra": {
+    "version": "1.0.0",
+    "mode": "Zen-Efficiency",
+    "agent": "Claude Architect"
+  },
+  "layers": {
+    "core": {
+      "description": "Reglas inmutables, automatización y configuración del framework",
+      "paths": {
+        "automation": "core/automation/",
+        "migrations": "core/migrations/",
+        "infra": "core/infra/",
+        "map": "core/MAP.json"
+      }
+    },
+    "blueprints": {
+      "description": "Módulos SQL/Backend reutilizables por cualquier startup",
+      "modules": {
+        "base": {
+          "path": "blueprints/base/",
+          "files": ["000_init.sql", "004_schema_versions.sql"],
+          "status": "stable"
+        },
+        "auth": {
+          "path": "blueprints/auth/",
+          "files": ["auth.service.sql", "auth.flow.sql", "oauth.service.sql"],
+          "status": "stable",
+          "migrations": ["0005_auth.sql", "0006_oauth.sql"]
+        },
+        "users": {
+          "path": "blueprints/users/",
+          "files": ["001_users.sql", "002_organizations.sql"],
+          "status": "stable",
+          "migrations": ["0002_users.sql", "0003_organizations.sql"]
+        },
+        "billing": {
+          "path": "blueprints/billing/",
+          "files": ["003_subscriptions.sql", "billing.service.sql"],
+          "status": "stable",
+          "migrations": ["0004_subscriptions.sql", "0007_billing.sql"]
+        },
+        "health-base": {
+          "path": "blueprints/health-base/",
+          "files": ["health.sql"],
+          "status": "pending",
+          "migrations": ["0009_health.sql"]
+        },
+        "utils": {
+          "path": "blueprints/utils/",
+          "files": ["helpers.sql"],
+          "status": "stable",
+          "migrations": ["0008_helpers.sql"]
+        }
+      }
+    },
+    "active_project": {
+      "description": "Startup actual inyectada. Carpeta volátil — reset con inject.sh",
+      "path": "active_project/",
+      "config": "active_project/blueprints.json"
+    }
+  },
+  "integrations": {
+    "linear": {
+      "team": "SUP",
+      "workspace": "linear.app/start-up-pack",
+      "mcp": ".mcp.json"
+    },
+    "slack": {
+      "channel": "#startup-pack",
+      "channel_id": "C0B3KR17K6W"
+    },
+    "github": {
+      "repo": "https://github.com/RubenGZ/Start-up-Pack",
+      "ci": ".github/workflows/ci.yml"
+    }
+  },
+  "rules": {
+    "max_lines_per_file": 250,
+    "priority_order": ["Urgent", "High", "Medium", "Low"],
+    "zen_sequence": ["log docs/index.html", "update CLAUDE.md", "git push", "compact"]
+  }
+}

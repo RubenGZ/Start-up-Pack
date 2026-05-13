@@ -8,7 +8,7 @@
 - **Linear API:** MCP local via `.mcp.json` (gitignored) → apunta a SUP workspace directamente
 - **Linear Team ID:** `64e046dd-9eab-4af6-b6e5-1c10a43a85e1`
 - **Linear Project ID:** `aa7d98d4-121c-4aeb-b5ca-5d4fa2faabd1`
-- **Secrets:** `infra/automation/config.json` + `.mcp.json` (ambos gitignored)
+- **Secrets:** `core/infra/.env` + `.mcp.json` (ambos gitignored)
 
 ## Patrón MCP per-proyecto
 Cada proyecto tiene su propio `.mcp.json` (gitignored) con el API key de su workspace:
@@ -44,6 +44,39 @@ YES BUDDY
 - Si un archivo supera 250L → refactorizar en submódulos inmediatamente.
 - Propósito: consumo de tokens bajo por diseño, independiente del tamaño total del proyecto.
 
+## Protocolo ADAPTAR A [Idea]
+Al recibir la orden `ADAPTAR A [Nombre/Concepto]`:
+1. Limpiar `active_project/`: `bash inject.sh --reset --modules=<módulos relevantes>`
+2. Actualizar `active_project/blueprints.json` con el nombre del nuevo proyecto
+3. Evaluar qué blueprints aplican (auth=siempre, billing=si tiene pagos, etc.)
+4. Actualizar dashboard `docs/index.html` → sección "Proyecto Activo"
+5. Redefinir scope en Linear: cerrar issues obsoletos, crear nuevos con prioridad
+6. Actualizar este CLAUDE.md con el nuevo contexto de negocio
+
+## Hydra Framework — Estructura
+```
+/core/
+  MAP.json          → GPS del repo (fuente de verdad técnica)
+  automation/       → zen_sequence.sh, log_append.sh
+  migrations/       → runner.sh + sql/ versionadas
+  infra/            → health_sweep.sh, .env (gitignored), .env.example
+/blueprints/
+  base/             → extensiones + schema_versions
+  auth/             → magic link, oauth, session
+  users/            → users, organizations
+  billing/          → subscriptions, billing service
+  health-base/      → health endpoint (pendiente SUP-6)
+  utils/            → helpers compartidos
+/active_project/
+  blueprints.json   → módulos activos de la startup actual
+  schemas/          → DDL inyectado (volátil, via inject.sh)
+  services/         → stored procs inyectados
+  utils/            → helpers inyectados
+/docs/              → index.html mission control
+/ideas/             → backlog.md
+inject.sh           → inyector de blueprints
+```
+
 ## Linear — Prioridades
 - Al crear cualquier issue: asignar prioridad siempre (nunca dejar en 0).
 - 1=Urgent (bloquea deploy), 2=High (bloquea dev), 3=Medium, 4=Low.
@@ -52,14 +85,6 @@ YES BUDDY
 
 ## Etiquetas Linear
 - `Low-Token`: solo output, sin prosa, abreviaturas técnicas.
-
-## Estructura
-```
-/core     → lógica principal
-/infra    → automatización e infraestructura
-/docs     → changelog y documentación
-/ideas    → backlog de ideas
-```
 
 ## Stakeholders
 - RGM — propietario

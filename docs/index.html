@@ -29,7 +29,6 @@
     padding: 2rem;
   }
 
-  /* HEADER */
   .header {
     display: flex;
     align-items: center;
@@ -52,10 +51,10 @@
     padding: 2px 10px; border-radius: 20px;
     font-size: 0.7rem; font-weight: 600; letter-spacing: .5px;
   }
-  .badge-live { background: #00e5a01a; color: var(--accent); border: 1px solid #00e5a033; }
-  .badge-zen  { background: #a855f71a; color: var(--accent3); border: 1px solid #a855f733; }
+  .badge-live   { background: #00e5a01a; color: var(--accent); border: 1px solid #00e5a033; }
+  .badge-zen    { background: #a855f71a; color: var(--accent3); border: 1px solid #a855f733; }
+  .badge-hydra  { background: #3b82f61a; color: var(--accent2); border: 1px solid #3b82f633; }
 
-  /* LINKS */
   .links { display: flex; gap: .75rem; align-items: center; }
   .link {
     display: flex; align-items: center; gap: 5px;
@@ -67,8 +66,8 @@
   .link:hover { border-color: var(--accent); color: var(--accent); }
   .link-dot { width: 6px; height: 6px; border-radius: 50%; }
 
-  /* STATS GRID */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+  /* STATS */
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
   .stat {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -80,10 +79,11 @@
     content: ''; position: absolute;
     top: 0; left: 0; right: 0; height: 2px;
   }
-  .stat.green::after { background: linear-gradient(90deg, var(--accent), transparent); }
-  .stat.blue::after  { background: linear-gradient(90deg, var(--accent2), transparent); }
-  .stat.purple::after{ background: linear-gradient(90deg, var(--accent3), transparent); }
-  .stat.amber::after { background: linear-gradient(90deg, var(--warn), transparent); }
+  .stat.green::after  { background: linear-gradient(90deg, var(--accent), transparent); }
+  .stat.blue::after   { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .stat.purple::after { background: linear-gradient(90deg, var(--accent3), transparent); }
+  .stat.amber::after  { background: linear-gradient(90deg, var(--warn), transparent); }
+  .stat.red::after    { background: linear-gradient(90deg, #ef4444, transparent); }
   .stat-label { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: .8px; }
   .stat-value { font-size: 1.8rem; font-weight: 700; color: #fff; line-height: 1.2; margin: .3rem 0; }
   .stat-sub   { color: var(--muted); font-size: 0.7rem; }
@@ -91,7 +91,6 @@
   /* MAIN GRID */
   .grid { display: grid; grid-template-columns: 1fr 340px; gap: 1rem; }
 
-  /* PANELS */
   .panel {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -106,7 +105,26 @@
   .panel-title { color: #fff; font-weight: 600; font-size: .8rem; letter-spacing: .3px; }
   .panel-body { padding: 1rem 1.25rem; }
 
-  /* MODULES TABLE */
+  /* ACTIVE PROJECT BANNER */
+  .active-banner {
+    background: linear-gradient(135deg, #00e5a010, #3b82f610);
+    border: 1px solid #00e5a030;
+    border-radius: 8px;
+    padding: .75rem 1rem;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: .75rem;
+  }
+  .active-icon { font-size: 18px; }
+  .active-name { color: var(--accent); font-weight: 700; font-size: .85rem; }
+  .active-meta { color: var(--muted); font-size: .68rem; }
+  .active-modules { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .25rem; }
+  .mod-chip {
+    padding: 1px 7px; border-radius: 10px; font-size: .63rem; font-weight: 600;
+    background: #1e2a38; color: #8b9eb0; border: 1px solid #2d3748;
+  }
+  .mod-chip.active { background: #00e5a015; color: var(--accent); border-color: #00e5a030; }
+
+  /* BLUEPRINTS TABLE */
   .modules { width: 100%; border-collapse: collapse; }
   .modules th {
     text-align: left; color: var(--muted);
@@ -122,9 +140,9 @@
     display: inline-flex; align-items: center; gap: 4px;
     padding: 2px 8px; border-radius: 12px; font-size: .68rem; font-weight: 600;
   }
-  .s-done   { background: #00e5a015; color: var(--accent);  border: 1px solid #00e5a030; }
-  .s-wip    { background: #f59e0b15; color: var(--warn);    border: 1px solid #f59e0b30; }
-  .s-next   { background: #3b82f615; color: var(--accent2); border: 1px solid #3b82f630; }
+  .s-done  { background: #00e5a015; color: var(--accent);  border: 1px solid #00e5a030; }
+  .s-wip   { background: #f59e0b15; color: var(--warn);    border: 1px solid #f59e0b30; }
+  .s-next  { background: #3b82f615; color: var(--accent2); border: 1px solid #3b82f630; }
   .s-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
   .mod-lines { color: var(--muted); text-align: right; font-size: .72rem; }
 
@@ -144,11 +162,12 @@
     border-radius: 4px; white-space: nowrap; margin-top: 1px;
     letter-spacing: .4px;
   }
-  .tag-init   { background: #1e2a38; color: #8b9eb0; }
-  .tag-sup4   { background: #3b82f620; color: var(--accent2); }
-  .tag-sup5   { background: #a855f720; color: var(--accent3); }
-  .log-text   { color: var(--text); line-height: 1.4; font-size: .75rem; flex: 1; }
-  .log-ts     { color: var(--muted); font-size: .65rem; white-space: nowrap; margin-top: 2px; }
+  .tag-init    { background: #1e2a38; color: #8b9eb0; }
+  .tag-sup4    { background: #3b82f620; color: var(--accent2); }
+  .tag-sup5    { background: #a855f720; color: var(--accent3); }
+  .tag-hydra   { background: #00e5a020; color: var(--accent); }
+  .log-text    { color: var(--text); line-height: 1.4; font-size: .75rem; flex: 1; }
+  .log-ts      { color: var(--muted); font-size: .65rem; white-space: nowrap; margin-top: 2px; }
 
   /* ROADMAP */
   .roadmap-item {
@@ -169,7 +188,6 @@
   .rm-sub    { color: var(--muted); font-size: .67rem; }
   .rm-id     { color: var(--muted); font-size: .67rem; font-weight: 600; }
 
-  /* FOOTER */
   .footer {
     margin-top: 1.5rem;
     padding-top: 1rem;
@@ -197,11 +215,12 @@
   <div class="header-left">
     <div class="logo">SP</div>
     <div>
-      <div class="title">startup-pack</div>
+      <div class="title">startup-pack · hydra</div>
       <div class="subtitle">mission control · RGM / JPM</div>
     </div>
     <span class="badge badge-live">LIVE</span>
     <span class="badge badge-zen">ZEN-MODE</span>
+    <span class="badge badge-hydra">HYDRA v1.0</span>
   </div>
   <div class="links">
     <a class="link" href="https://github.com/RubenGZ/Start-up-Pack" target="_blank">
@@ -216,12 +235,29 @@
   </div>
 </div>
 
+<!-- ACTIVE PROJECT BANNER -->
+<div class="active-banner">
+  <div class="active-icon">⚡</div>
+  <div>
+    <div class="active-name">Proyecto Activo: Start-up Pack (Hydra Base)</div>
+    <div class="active-meta">Inyectado via inject.sh · active_project/blueprints.json · Próximo: ADAPTAR A [Idea]</div>
+    <div class="active-modules">
+      <span class="mod-chip active">base</span>
+      <span class="mod-chip active">auth</span>
+      <span class="mod-chip active">users</span>
+      <span class="mod-chip active">billing</span>
+      <span class="mod-chip active">utils</span>
+      <span class="mod-chip">health-base ⏳</span>
+    </div>
+  </div>
+</div>
+
 <!-- STATS -->
 <div class="stats">
   <div class="stat green">
-    <div class="stat-label">SQL Modules</div>
-    <div class="stat-value">7</div>
-    <div class="stat-sub">schemas + services + utils</div>
+    <div class="stat-label">Blueprints</div>
+    <div class="stat-value">6</div>
+    <div class="stat-sub">auth · users · billing · utils · base · health</div>
   </div>
   <div class="stat blue">
     <div class="stat-label">Auth Functions</div>
@@ -238,106 +274,104 @@
     <div class="stat-value">250L</div>
     <div class="stat-sub">max lines per file</div>
   </div>
+  <div class="stat red">
+    <div class="stat-label">Urgent</div>
+    <div class="stat-value">SUP-6</div>
+    <div class="stat-sub">health endpoint pendiente</div>
+  </div>
 </div>
 
 <!-- MAIN GRID -->
 <div class="grid">
 
-  <!-- LEFT: MODULES -->
+  <!-- LEFT: BLUEPRINTS -->
   <div class="panel">
     <div class="panel-header">
-      <span class="panel-title">Módulos del núcleo</span>
-      <span style="color:var(--muted);font-size:.7rem">core/ · 7 archivos</span>
+      <span class="panel-title">Hydra Blueprints</span>
+      <span style="color:var(--muted);font-size:.7rem">blueprints/ · 6 módulos · inject.sh</span>
     </div>
     <div style="padding: .5rem 0;">
       <table class="modules">
         <thead>
           <tr>
             <th style="padding-left:1.25rem">Módulo</th>
+            <th>Capa</th>
             <th>Estado</th>
-            <th style="text-align:right;padding-right:1.25rem">Líneas</th>
+            <th style="text-align:right;padding-right:1.25rem">Archivos</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td style="padding-left:1.25rem">
-              <div class="mod-name">000_init</div>
-              <div class="mod-path">core/schemas/000_init.sql</div>
+              <div class="mod-name">base</div>
+              <div class="mod-path">blueprints/base/ — extensions + schema_versions</div>
             </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">~20L</td>
+            <td style="color:var(--muted);font-size:.7rem">DDL</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">2</td>
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
-              <div class="mod-name">001_users</div>
-              <div class="mod-path">core/schemas/001_users.sql</div>
+              <div class="mod-name">auth</div>
+              <div class="mod-path">blueprints/auth/ — magic link · oauth · session</div>
             </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">18L</td>
+            <td style="color:var(--muted);font-size:.7rem">Service</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">3</td>
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
-              <div class="mod-name">002_organizations</div>
-              <div class="mod-path">core/schemas/002_organizations.sql</div>
+              <div class="mod-name">users</div>
+              <div class="mod-path">blueprints/users/ — users · organizations</div>
             </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">~30L</td>
+            <td style="color:var(--muted);font-size:.7rem">DDL</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">2</td>
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
-              <div class="mod-name">003_subscriptions</div>
-              <div class="mod-path">core/schemas/003_subscriptions.sql</div>
+              <div class="mod-name">billing</div>
+              <div class="mod-path">blueprints/billing/ — subscriptions · billing service</div>
             </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">~25L</td>
+            <td style="color:var(--muted);font-size:.7rem">DDL+Svc</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">2</td>
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
-              <div class="mod-name">auth.service + auth.flow</div>
-              <div class="mod-path">core/services/auth.*.sql</div>
+              <div class="mod-name">utils</div>
+              <div class="mod-path">blueprints/utils/ — helpers compartidos</div>
             </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">33 + 84L</td>
+            <td style="color:var(--muted);font-size:.7rem">Utils</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">1</td>
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
-              <div class="mod-name">oauth.service</div>
-              <div class="mod-path">core/services/oauth.service.sql</div>
+              <div class="mod-name">health-base</div>
+              <div class="mod-path">blueprints/health-base/ — /health endpoint</div>
             </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">78L</td>
-          </tr>
-          <tr>
-            <td style="padding-left:1.25rem">
-              <div class="mod-name">billing.service</div>
-              <div class="mod-path">core/services/billing.service.sql</div>
-            </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">32L</td>
-          </tr>
-          <tr>
-            <td style="padding-left:1.25rem">
-              <div class="mod-name">helpers</div>
-              <div class="mod-path">core/utils/helpers.sql</div>
-            </td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>done</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">32L</td>
-          </tr>
-          <tr>
-            <td style="padding-left:1.25rem">
-              <div class="mod-name">migrations runner</div>
-              <div class="mod-path">infra/migrations/</div>
-            </td>
-            <td><span class="status-pill s-next"><span class="s-dot"></span>SUP-5</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">—</td>
-          </tr>
-          <tr>
-            <td style="padding-left:1.25rem">
-              <div class="mod-name">health endpoint</div>
-              <div class="mod-path">core/api/health.sql</div>
-            </td>
+            <td style="color:var(--muted);font-size:.7rem">API</td>
             <td><span class="status-pill s-next"><span class="s-dot"></span>SUP-6</span></td>
             <td class="mod-lines" style="padding-right:1.25rem">—</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">core/migrations</div>
+              <div class="mod-path">core/migrations/ — runner.sh + 8 sql versionadas</div>
+            </td>
+            <td style="color:var(--muted);font-size:.7rem">Infra</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">9</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">active_project</div>
+              <div class="mod-path">active_project/ — startup actual inyectada</div>
+            </td>
+            <td style="color:var(--muted);font-size:.7rem">Runtime</td>
+            <td><span class="status-pill s-wip"><span class="s-dot"></span>hydra-base</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">inject.sh</td>
           </tr>
         </tbody>
       </table>
@@ -358,7 +392,7 @@
           <div class="rm-icon rm-done">✅</div>
           <div style="flex:1">
             <div class="rm-label">Repo + CI/CD</div>
-            <div class="rm-sub">GitHub Actions, health sweep, notify</div>
+            <div class="rm-sub">GitHub Actions, health sweep</div>
           </div>
           <div class="rm-id">SUP-1</div>
         </div>
@@ -374,31 +408,39 @@
           <div class="rm-icon rm-done">✅</div>
           <div style="flex:1">
             <div class="rm-label">Auth flow</div>
-            <div class="rm-sub">magic link + OAuth Google</div>
+            <div class="rm-sub">magic link + OAuth</div>
           </div>
           <div class="rm-id">SUP-4</div>
         </div>
         <div class="roadmap-item">
-          <div class="rm-icon rm-active">⚡</div>
+          <div class="rm-icon rm-done">✅</div>
           <div style="flex:1">
             <div class="rm-label">DB Migrations</div>
-            <div class="rm-sub">versioned runner</div>
+            <div class="rm-sub">versioned runner + 8 migrations</div>
           </div>
           <div class="rm-id">SUP-5</div>
         </div>
         <div class="roadmap-item">
-          <div class="rm-icon rm-next">○</div>
+          <div class="rm-icon rm-done">✅</div>
+          <div style="flex:1">
+            <div class="rm-label">Hydra Framework</div>
+            <div class="rm-sub">blueprints · inject.sh · MAP.json</div>
+          </div>
+          <div class="rm-id">HYDRA</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-active">🔴</div>
           <div style="flex:1">
             <div class="rm-label">Health endpoint</div>
-            <div class="rm-sub">/health check</div>
+            <div class="rm-sub">blueprints/health-base/</div>
           </div>
           <div class="rm-id">SUP-6</div>
         </div>
         <div class="roadmap-item">
           <div class="rm-icon rm-next">○</div>
           <div style="flex:1">
-            <div class="rm-label">Onboarding flow</div>
-            <div class="rm-sub">org setup wizard</div>
+            <div class="rm-label">Seed data dev</div>
+            <div class="rm-sub">demo org + admin user</div>
           </div>
           <div class="rm-id">SUP-7</div>
         </div>
@@ -409,23 +451,28 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">3 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">5 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <li class="log-item">
-            <span class="log-tag tag-sup4">SUP-4</span>
-            <span class="log-text">oauth.service.sql — oauth_accounts + upsert_oauth_user</span>
+            <span class="log-tag tag-hydra">HYDRA</span>
+            <span class="log-text">Hydra v1.0 online — blueprints/ + active_project/ + inject.sh + MAP.json</span>
             <span class="log-ts">2026-05-13</span>
           </li>
           <li class="log-item">
-            <span class="log-tag tag-sup4">SUP-4</span>
-            <span class="log-text">auth.flow.sql — magic link, session, validate, revoke</span>
-            <span class="log-ts">2026-05-13</span>
-          </li>
-          <li class="log-item">
-            <span class="log-tag tag-sup4">SUP-5</span>
+            <span class="log-tag tag-sup5">SUP-5</span>
             <span class="log-text">migrations runner — runner.sh + 8 sql versionadas + CI validate-migrations</span>
+            <span class="log-ts">2026-05-13</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup4">SUP-4</span>
+            <span class="log-text">auth.flow.sql + oauth.service.sql — magic link, session, OAuth</span>
+            <span class="log-ts">2026-05-13</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup4">SUP-3</span>
+            <span class="log-text">schemas completos — users, orgs, subscriptions, billing</span>
             <span class="log-ts">2026-05-13</span>
           </li>
           <li class="log-item">
@@ -444,7 +491,7 @@
 <div class="footer">
   <div class="footer-agent">
     <div class="pulse"></div>
-    Claude Architect · Zen-Efficiency · 250L rule
+    Claude Architect · Zen-Efficiency · Hydra v1.0 · 250L rule
   </div>
   <div>startup-pack · RGM / JPM · 2026</div>
 </div>

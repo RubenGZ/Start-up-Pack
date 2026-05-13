@@ -22,8 +22,9 @@ YES BUDDY
 
 ## Zen Sequence (post-éxito)
 1. Log atómico en `docs/index.html`
-2. `git add . && git commit -m "update" && git push`
-3. `/compact`
+2. Actualizar `CLAUDE.md` si hay info estructural nueva
+3. `git add . && git commit -m "[SUP-X] ..." && git push`
+4. Recordar al usuario: **"Ejecuta /compact ahora"**
 
 ## Smart-Context (Gestión Dinámica)
 - Antes de iniciar tarea: `du -h <módulo>` para evaluar tamaño.

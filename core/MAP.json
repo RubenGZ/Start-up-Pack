@@ -43,7 +43,7 @@
         "health-base": {
           "path": "blueprints/health-base/",
           "files": ["health.sql"],
-          "status": "pending",
+          "status": "stable",
           "migrations": ["0009_health.sql"]
         },
         "utils": {

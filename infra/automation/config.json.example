@@ -1,0 +1,8 @@
+{
+  "slack_token": "xoxb-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXX",
+  "linear_api_key": "lin_api_XXXXXXXXXXXXXXXXXXXXXXXX",
+  "slack_channel": "C0B3KR17K6W",
+  "linear_team": "SUP",
+  "agent": "Claude Architect",
+  "mode": "Zen-Efficiency"
+}

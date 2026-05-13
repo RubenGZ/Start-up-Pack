@@ -44,6 +44,12 @@ YES BUDDY
 - Si un archivo supera 250L → refactorizar en submódulos inmediatamente.
 - Propósito: consumo de tokens bajo por diseño, independiente del tamaño total del proyecto.
 
+## Linear — Prioridades
+- Al crear cualquier issue: asignar prioridad siempre (nunca dejar en 0).
+- 1=Urgent (bloquea deploy), 2=High (bloquea dev), 3=Medium, 4=Low.
+- Trabajar siempre en orden: Urgent → High → Medium → Low.
+- Prioridad dictaminada por Claude Architect en cada tarea.
+
 ## Etiquetas Linear
 - `Low-Token`: solo output, sin prosa, abreviaturas técnicas.
 

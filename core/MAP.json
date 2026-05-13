@@ -46,6 +46,12 @@
           "status": "stable",
           "migrations": ["0009_health.sql"]
         },
+        "seed": {
+          "path": "blueprints/seed/",
+          "files": ["seed.sql"],
+          "status": "stable",
+          "migrations": ["0010_seed.sql"]
+        },
         "utils": {
           "path": "blueprints/utils/",
           "files": ["helpers.sql"],

@@ -1,0 +1,20 @@
+name: Notify
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  slack-notify:
+    name: Slack notification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify #startup-pack
+        run: |
+          curl -s -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer ${{ secrets.SLACK_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"channel\": \"C0B3KR17K6W\",
+              \"text\": \"*[CI/CD]* push en \`main\` por ${{ github.actor }} — <${{ github.event.head_commit.url }}|ver commit>\"
+            }"

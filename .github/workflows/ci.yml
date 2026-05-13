@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  health-sweep:
+    name: Health Sweep (250L rule)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run health sweep
+        run: |
+          chmod +x infra/health_sweep.sh
+          bash infra/health_sweep.sh .
+        continue-on-error: false
+
+  lint-sql:
+    name: Validate SQL structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check SQL files exist and are non-empty
+        run: |
+          find core/ -name "*.sql" | while read f; do
+            lines=$(wc -l < "$f")
+            echo "  $f → ${lines}L"
+            if [ "$lines" -gt 250 ]; then
+              echo "ERROR: $f supera 250 líneas"
+              exit 1
+            fi
+          done
+
+  validate-structure:
+    name: Validate repo structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required files
+        run: |
+          for f in CLAUDE.md README.md .gitignore docs/index.html \
+                   infra/health_sweep.sh infra/automation/zen_sequence.sh \
+                   core/schemas/000_init.sql ideas/backlog.md; do
+            [ -f "$f" ] && echo "✅ $f" || (echo "❌ $f MISSING" && exit 1)
+          done

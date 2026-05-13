@@ -8,8 +8,14 @@
 - **Secrets:** `infra/automation/config.json` (gitignored)
 
 ## Reglas de Oro
-- Lacónico. Sin cortesías. Sin explicaciones no solicitadas.
-- Éxito → `YES BUDDY` + Zen Sequence automática.
+- Lacónico. Sin cortesías. Sin lenguaje natural.
+- Éxito → 1 línea atómica + Next Step (≤5 palabras) → `YES BUDDY` → Zen Sequence.
+
+## Formato de Respuesta
+```
+[DONE] <qué se ejecutó> | Next: <≤5 palabras>
+YES BUDDY
+```
 
 ## Zen Sequence (post-éxito)
 1. Log atómico en `docs/index.html`

@@ -4,10 +4,10 @@
 - **Agente:** Claude Architect
 - **Repo:** https://github.com/RubenGZ/Start-up-Pack
 - **Slack:** #startup-pack (C0B3KR17K6W)
-- **Linear Team:** SUP (Start-up Pack) — workspace: linear.app/start-up-pack
-- **Linear API:** MCP local via `.mcp.json` (gitignored) → apunta a SUP workspace directamente
-- **Linear Team ID:** `64e046dd-9eab-4af6-b6e5-1c10a43a85e1`
-- **Linear Project ID:** `aa7d98d4-121c-4aeb-b5ca-5d4fa2faabd1`
+- **Linear Team:** Health Stack (prefijo HEA-) — workspace: linear.app/healthstack
+- **Linear API:** MCP local via `.mcp.json` (gitignored) → apunta a healthstack workspace
+- **Linear Team ID:** `c9d9007b-7daa-464c-8f46-d037da0a1d58`
+- **Linear Project ID:** `efda7e5f-ad9e-4d9e-a570-b49621faee7b`
 - **Secrets:** `core/infra/.env` + `.mcp.json` (ambos gitignored)
 
 ## Patrón MCP per-proyecto

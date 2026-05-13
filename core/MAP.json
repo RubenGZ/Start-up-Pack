@@ -58,6 +58,12 @@
           "status": "stable",
           "migrations": ["0011_rate_limit.sql"]
         },
+        "audit": {
+          "path": "blueprints/audit/",
+          "files": ["audit.sql"],
+          "status": "stable",
+          "migrations": ["0012_audit.sql"]
+        },
         "utils": {
           "path": "blueprints/utils/",
           "files": ["helpers.sql"],

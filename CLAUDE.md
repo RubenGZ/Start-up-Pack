@@ -4,7 +4,10 @@
 - **Agente:** Claude Architect
 - **Repo:** https://github.com/RubenGZ/Start-up-Pack
 - **Slack:** #startup-pack (C0B3KR17K6W)
-- **Linear Team:** SUP (Start-up Pack)
+- **Linear Team:** SUP (Start-up Pack) — workspace: linear.app/start-up-pack
+- **Linear API:** usar key de `config.json` directamente (MCP conectado a Health Stack, no SUP)
+- **Linear Team ID:** `64e046dd-9eab-4af6-b6e5-1c10a43a85e1`
+- **Linear Project ID:** `aa7d98d4-121c-4aeb-b5ca-5d4fa2faabd1`
 - **Secrets:** `infra/automation/config.json` (gitignored)
 
 ## Reglas de Oro

@@ -109,7 +109,7 @@ BEGIN
       pgp_sym_encrypt(names[(i-1) % 50 + 1], v_key),
       pgp_sym_encrypt((DATE '1950-01-01' + ((i*127+31) % 18000))::TEXT, v_key),
       btype[(i-1) % 8 + 1],
-      format('NHC-%05s', i)
+      'NHC-' || LPAD(i::TEXT, 5, '0')
     )
     RETURNING id INTO v_pid;
 

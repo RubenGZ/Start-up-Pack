@@ -29,7 +29,7 @@ Así cada proyecto usa su propio Linear workspace sin interferencia.
 - Exit 0 = autorizado. Exit 1 = bloqueado.
 - Tests en: `core/tests/*.sql` (pgTAP sobre contenedor Docker efímero)
 - Excepción: cambios exclusivos en `docs/`, `ideas/` o `CLAUDE.md` (no afectan SQL)
-- Módulos cubiertos: auth ✅ | billing 🔜 | users 🔜 | rate-limit 🔜
+- Módulos cubiertos: auth ✅ (9) | billing ✅ (14) | users 🔜 | rate-limit 🔜
 
 ## Formato de Respuesta
 ```

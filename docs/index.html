@@ -215,12 +215,12 @@
   <div class="header-left">
     <div class="logo">SP</div>
     <div>
-      <div class="title">startup-pack · hydra</div>
+      <div class="title">Hydra OS · agnostic engine</div>
       <div class="subtitle">mission control · RGM / JPM</div>
     </div>
     <span class="badge badge-live">LIVE</span>
     <span class="badge badge-zen">ZEN-MODE</span>
-    <span class="badge badge-hydra">HYDRA v1.1</span>
+    <span class="badge badge-hydra">HYDRA OS v1.2</span>
   </div>
   <div class="links">
     <a class="link" href="https://github.com/RubenGZ/Start-up-Pack" target="_blank">
@@ -237,17 +237,16 @@
 
 <!-- ACTIVE PROJECT BANNER -->
 <div class="active-banner">
-  <div class="active-icon">🏥</div>
+  <div class="active-icon">⚙️</div>
   <div>
-    <div class="active-name">Proyecto Activo: HealthStack_Pro</div>
-    <div class="active-meta">SUP-24 · 6 módulos · 16 archivos · patients + medical_records encriptados · 50 pacientes demo (pgp_sym_encrypt)</div>
+    <div class="active-name">Motor Activo: Hydra OS — Agnostic Engine</div>
+    <div class="active-meta">SUP-26 · engine agnóstico · health-optional movido · QA pgTAP integrado · 9 tests auth · Test-Before-Push activo</div>
     <div class="active-modules">
       <span class="mod-chip active">auth</span>
       <span class="mod-chip active">users</span>
       <span class="mod-chip active">billing</span>
-      <span class="mod-chip active">health-base</span>
+      <span class="mod-chip active">health-optional</span>
       <span class="mod-chip active">seed</span>
-      <span class="mod-chip active">healthstack</span>
       <span class="mod-chip" style="opacity:.35">rate-limit</span>
       <span class="mod-chip" style="opacity:.35">audit</span>
       <span class="mod-chip" style="opacity:.35">onboarding</span>
@@ -263,17 +262,17 @@
   <div class="stat green">
     <div class="stat-label">Blueprints</div>
     <div class="stat-value">12</div>
-    <div class="stat-sub">base · auth · users · billing · health · seed · rate-limit · audit · onboarding · notifications · api-keys · utils</div>
+    <div class="stat-sub">base · auth · users · billing · health-optional · seed · rate-limit · audit · onboarding · notifications · api-keys · dashboard</div>
   </div>
   <div class="stat blue">
     <div class="stat-label">Migrations</div>
-    <div class="stat-value">20</div>
-    <div class="stat-sub">0001 → 0020 · secuencia completa</div>
+    <div class="stat-value">24</div>
+    <div class="stat-sub">0001 → 0024 · +24 down scripts · --rollback=N</div>
   </div>
   <div class="stat purple">
-    <div class="stat-label">CI/CD Jobs</div>
-    <div class="stat-value">5</div>
-    <div class="stat-sub">sweep · lint · validate · integration · notify</div>
+    <div class="stat-label">QA Tests</div>
+    <div class="stat-value">9</div>
+    <div class="stat-sub">pgTAP · auth ✅ · billing 🔜 · users 🔜</div>
   </div>
   <div class="stat amber">
     <div class="stat-label">Context Rule</div>
@@ -282,8 +281,8 @@
   </div>
   <div class="stat green">
     <div class="stat-label">Sprint</div>
-    <div class="stat-value">Done</div>
-    <div class="stat-sub">SUP-6→23 completados ✅</div>
+    <div class="stat-value">SUP-26</div>
+    <div class="stat-sub">Hydra OS · QA Gate activo</div>
   </div>
 </div>
 
@@ -354,12 +353,12 @@
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
-              <div class="mod-name">health-base</div>
-              <div class="mod-path">blueprints/health-base/ — /health endpoint</div>
+              <div class="mod-name">health-optional</div>
+              <div class="mod-path">blueprints/health-optional/ — /health endpoint · domain blueprints (opt-in)</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">API</td>
             <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
-            <td class="mod-lines" style="padding-right:1.25rem">1</td>
+            <td class="mod-lines" style="padding-right:1.25rem">2</td>
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
@@ -430,7 +429,7 @@
               <div class="mod-path">active_project/ — startup actual inyectada</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">Runtime</td>
-            <td><span class="status-pill s-done"><span class="s-dot"></span>HealthStack_Alpha</span></td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>Hydra OS</span></td>
             <td class="mod-lines" style="padding-right:1.25rem">inject.sh</td>
           </tr>
         </tbody>
@@ -491,6 +490,22 @@
         <div class="roadmap-item">
           <div class="rm-icon rm-done">✅</div>
           <div style="flex:1">
+            <div class="rm-label">Hydra OS · QA Gate</div>
+            <div class="rm-sub">pgTAP · run_tests.sh · Test-Before-Push · 9 auth tests</div>
+          </div>
+          <div class="rm-id">SUP-26</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-active">🔜</div>
+          <div style="flex:1">
+            <div class="rm-label">QA Billing suite</div>
+            <div class="rm-sub">02_billing_test.sql · stripe webhooks · portal flow</div>
+          </div>
+          <div class="rm-id">SUP-27</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="rm-icon rm-done">✅</div>
+          <div style="flex:1">
             <div class="rm-label">Health endpoint</div>
             <div class="rm-sub">blueprints/health-base/</div>
           </div>
@@ -527,11 +542,21 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">29 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">32 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-hydra">SUP-26</span>
+            <span class="log-text">Hydra OS — engine agnóstico · health-optional · QA pgTAP · 9 tests auth · Test-Before-Push CLAUDE.md · run_tests.sh</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-hydra">SUP-25</span>
+            <span class="log-text">guide-dev.html (dark · 7 steps · copy btns) + guide-founder.html (light · 6 steps · analogías) + design spec</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-sup5">SUP-24</span>
             <span class="log-text">patients_seed.sql (134L) — patients + medical_records + get_patient_record() · 50 pacientes ficticios pgp_sym_encrypt · HealthStack_Pro</span>
@@ -688,7 +713,7 @@
 <div class="footer">
   <div class="footer-agent">
     <div class="pulse"></div>
-    Claude Architect · Zen-Efficiency · Hydra v1.0 · 250L rule
+    Claude Architect · Zen-Efficiency · Hydra OS v1.2 · 250L rule · Test-Before-Push
   </div>
   <div>startup-pack · RGM / JPM · 2026</div>
 </div>

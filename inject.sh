@@ -10,7 +10,7 @@ BLUEPRINTS="$REPO_ROOT/blueprints"
 ACTIVE="$REPO_ROOT/active_project"
 CONFIG="$ACTIVE/blueprints.json"
 
-DEFAULT_MODULES="base,auth,users,billing,health-base,seed,rate-limit,audit,onboarding,notifications,api-keys,dashboard,utils"
+DEFAULT_MODULES="base,auth,users,billing,health-optional,seed,rate-limit,audit,onboarding,notifications,api-keys,dashboard,utils"
 MODULES="${DEFAULT_MODULES}"
 RESET=false
 NO_OAUTH=false
@@ -24,7 +24,7 @@ for arg in "$@"; do
     --project=*)  PROJECT_NAME="${arg#--project=}" ;;
     --help)
       echo "Uso: bash inject.sh [--modules=mod1,mod2,...] [--reset] [--no-oauth] [--project=NombreStartup]"
-      echo "Módulos disponibles: base, auth, users, billing, health-base, seed, rate-limit, audit, onboarding, notifications, api-keys, dashboard, utils"
+      echo "Módulos disponibles: base, auth, users, billing, health-optional, seed, rate-limit, audit, onboarding, notifications, api-keys, dashboard, utils"
       echo "Flags:"
       echo "  --no-oauth    Excluye oauth.service.sql del módulo auth"
       echo "  --project=X   Nombre del proyecto activo (actualiza blueprints.json)"
@@ -81,8 +81,8 @@ for mod in "${MOD_LIST[@]}"; do
         cp "$SRC"/*.sql "$ACTIVE/services/" 2>/dev/null && echo "OK (services, con OAuth)" || echo "SKIP"
       fi
       ;;
-    health-base)
-      cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
+    health-optional)
+      cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas — optional)" || echo "SKIP"
       ;;
     seed)
       cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas — dev only)" || echo "SKIP"

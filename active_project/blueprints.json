@@ -1,6 +1,6 @@
 {
-  "project": "HealthStack_Pro",
-  "injected_at": "2026-05-14T12:30:00Z",
-  "modules": ["auth","users","billing","health-base","seed","healthstack"],
-  "extras": ["patients_seed.sql — 50 pacientes encriptados pgp_sym_encrypt (SUP-24)"]
+  "project": "Hydra OS",
+  "injected_at": "2026-05-14T00:00:00Z",
+  "modules": ["auth","users","billing","health-optional","seed"],
+  "extras": []
 }

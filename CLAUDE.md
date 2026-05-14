@@ -23,6 +23,14 @@ Así cada proyecto usa su propio Linear workspace sin interferencia.
 - Lacónico. Sin cortesías. Sin lenguaje natural.
 - Éxito → 1 línea atómica + % contexto + Next Step (≤5 palabras) → `YES BUDDY` → Zen Sequence.
 
+## Test-Before-Push (QA Gate obligatorio)
+**No se permite hacer `git push` ni emitir `YES BUDDY` sin que `./core/tests/run_tests.sh` devuelva PASS total.**
+- Script: `bash core/tests/run_tests.sh`
+- Exit 0 = autorizado. Exit 1 = bloqueado.
+- Tests en: `core/tests/*.sql` (pgTAP sobre contenedor Docker efímero)
+- Excepción: cambios exclusivos en `docs/`, `ideas/` o `CLAUDE.md` (no afectan SQL)
+- Módulos cubiertos: auth ✅ | billing 🔜 | users 🔜 | rate-limit 🔜
+
 ## Formato de Respuesta
 ```
 [DONE] <qué se ejecutó> | ctx: X% | Next: <≤5 palabras>
@@ -65,7 +73,7 @@ Al recibir la orden `ADAPTAR A [Nombre/Concepto]`:
   auth/             → magic link, oauth, session
   users/            → users, organizations
   billing/          → subscriptions, billing service
-  health-base/      → health endpoint (pendiente SUP-6)
+  health-optional/  → health_check() endpoint + domain blueprints (opt-in)
   utils/            → helpers compartidos
 /active_project/
   blueprints.json   → módulos activos de la startup actual

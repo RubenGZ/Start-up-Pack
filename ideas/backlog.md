@@ -10,14 +10,15 @@
 
 ## Infraestructura
 - [x] CI/CD pipeline (GitHub Actions) — `ci.yml` + `notify.yml`
-- [x] Migraciones DB con versioning — `runner.sh` + 13 sql versionadas
+- [x] Migraciones DB con versioning — `runner.sh` + 18 sql versionadas
 - [x] Seed data para desarrollo local — `blueprints/seed/seed.sql` (SUP-7)
 - [x] Health check endpoint `/health` — `blueprints/health-base/health.sql` (SUP-6)
 - [x] Rate limiting por org — `blueprints/rate-limit/` + cleanup (SUP-8)
 - [x] Logs estructurados (JSON) — `blueprints/audit/audit.sql` (SUP-9)
-- [ ] Integration tests en CI (PostgreSQL real) — CI job `integration-test`
+- [x] Integration tests en CI (PostgreSQL real) — CI job `integration-test`
+- [x] pg_cron scheduler — `0018_pg_cron.sql` (SUP-14)
+- [x] Docker local dev environment — `docker-compose.yml` + `.env.example` (SUP-15)
 - [ ] Rollback strategy para migrations (down scripts)
-- [x] pg_cron scheduler para cleanup_expired_auth() y cleanup_rate_limit_counters() — `0018_pg_cron.sql` (SUP-14)
 - [ ] Particionado de audit_log por mes (cuando volumen > 1M rows)
 
 ## Integraciones

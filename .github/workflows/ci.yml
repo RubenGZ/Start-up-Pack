@@ -80,6 +80,8 @@ jobs:
                    blueprints/auth/auth.service.sql blueprints/auth/auth.context.sql \
                    blueprints/utils/helpers.sql \
                    active_project/blueprints.json \
+                   docker-compose.yml .env.example \
+                   core/infra/pg_cron_init.sql \
                    ideas/backlog.md; do
             [ -f "$f" ] && echo "✅ $f" || (echo "❌ $f MISSING" && exit 1)
           done

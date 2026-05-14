@@ -5,3 +5,6 @@ core/infra/.env
 node_modules/
 *.env
 .DS_Store
+.gstack/
+.env
+

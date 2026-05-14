@@ -1,0 +1,72 @@
+version: '3.9'
+
+# Hydra Framework — Local Dev Stack
+# Uso: docker compose up -d
+# Requiere: Docker Desktop + .env en raíz del proyecto
+
+services:
+
+  # ─── PostgreSQL 16 + pg_cron ──────────────────────────────────────────────
+  db:
+    image: postgres:16
+    container_name: hydra_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-hydra_dev}
+      POSTGRES_USER:     ${POSTGRES_USER:-hydra}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-hydra_secret}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - hydra_pgdata:/var/lib/postgresql/data
+      - ./core/infra/pg_cron_init.sql:/docker-entrypoint-initdb.d/00_pg_cron.sql:ro
+    command: >
+      postgres
+        -c shared_preload_libraries=pg_cron
+        -c cron.database_name=${POSTGRES_DB:-hydra_dev}
+        -c log_min_messages=warning
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-hydra} -d ${POSTGRES_DB:-hydra_dev}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ─── Migration runner (one-shot) ─────────────────────────────────────────
+  migrate:
+    image: postgres:16
+    container_name: hydra_migrate
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-hydra}:${POSTGRES_PASSWORD:-hydra_secret}@db:5432/${POSTGRES_DB:-hydra_dev}
+    volumes:
+      - .:/workspace:ro
+    working_dir: /workspace
+    entrypoint: ["bash", "core/migrations/runner.sh"]
+
+  # ─── pgAdmin 4 (opcional) ─────────────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: hydra_pgadmin
+    restart: unless-stopped
+    profiles: ["tools"]
+    environment:
+      PGADMIN_DEFAULT_EMAIL:    ${PGADMIN_EMAIL:-admin@hydra.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - hydra_pgadmin:/var/lib/pgadmin
+
+volumes:
+  hydra_pgdata:
+    name: hydra_pgdata
+  hydra_pgadmin:
+    name: hydra_pgadmin

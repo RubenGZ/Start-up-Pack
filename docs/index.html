@@ -229,7 +229,7 @@
     <a class="link" href="https://linear.app/start-up-pack" target="_blank">
       <span class="link-dot" style="background:#5e6ad2"></span> Linear
     </a>
-    <a class="link" href="https://slack.com" target="_blank">
+    <a class="link" href="https://app.slack.com/client/T0B3KR17K6W/C0B3KR17K6W" target="_blank">
       <span class="link-dot" style="background:#e8b94a"></span> Slack
     </a>
   </div>
@@ -246,8 +246,11 @@
       <span class="mod-chip active">auth</span>
       <span class="mod-chip active">users</span>
       <span class="mod-chip active">billing</span>
+      <span class="mod-chip active">health-base</span>
+      <span class="mod-chip active">seed</span>
+      <span class="mod-chip active">rate-limit</span>
+      <span class="mod-chip active">audit</span>
       <span class="mod-chip active">utils</span>
-      <span class="mod-chip">health-base ⏳</span>
     </div>
   </div>
 </div>
@@ -256,28 +259,28 @@
 <div class="stats">
   <div class="stat green">
     <div class="stat-label">Blueprints</div>
-    <div class="stat-value">6</div>
-    <div class="stat-sub">auth · users · billing · utils · base · health</div>
+    <div class="stat-value">9</div>
+    <div class="stat-sub">base · auth · users · billing · health · seed · rate-limit · audit · utils</div>
   </div>
   <div class="stat blue">
-    <div class="stat-label">Auth Functions</div>
-    <div class="stat-value">6</div>
-    <div class="stat-sub">magic link · oauth · session</div>
+    <div class="stat-label">Migrations</div>
+    <div class="stat-value">13</div>
+    <div class="stat-sub">0001 → 0013 · secuencia completa</div>
   </div>
   <div class="stat purple">
     <div class="stat-label">CI/CD Jobs</div>
-    <div class="stat-value">4</div>
-    <div class="stat-sub">sweep · lint · validate · notify</div>
+    <div class="stat-value">5</div>
+    <div class="stat-sub">sweep · lint · validate · integration · notify</div>
   </div>
   <div class="stat amber">
     <div class="stat-label">Context Rule</div>
     <div class="stat-value">250L</div>
     <div class="stat-sub">max lines per file</div>
   </div>
-  <div class="stat">
-    <div class="stat-label">Next</div>
-    <div class="stat-value">SUP-7</div>
-    <div class="stat-sub">seed data local dev</div>
+  <div class="stat green">
+    <div class="stat-label">Sprint</div>
+    <div class="stat-value">Done</div>
+    <div class="stat-sub">SUP-6/7/8/9 completados ✅</div>
   </div>
 </div>
 
@@ -288,7 +291,7 @@
   <div class="panel">
     <div class="panel-header">
       <span class="panel-title">Hydra Blueprints</span>
-      <span style="color:var(--muted);font-size:.7rem">blueprints/ · 6 módulos · inject.sh</span>
+      <span style="color:var(--muted);font-size:.7rem">blueprints/ · 9 módulos · inject.sh</span>
     </div>
     <div style="padding: .5rem 0;">
       <table class="modules">
@@ -366,8 +369,26 @@
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
+              <div class="mod-name">rate-limit</div>
+              <div class="mod-path">blueprints/rate-limit/ — ventana deslizante + cleanup</div>
+            </td>
+            <td style="color:var(--muted);font-size:.7rem">Service</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">2</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
+              <div class="mod-name">audit</div>
+              <div class="mod-path">blueprints/audit/ — JSONB log + trigger universal</div>
+            </td>
+            <td style="color:var(--muted);font-size:.7rem">Service</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">1</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
               <div class="mod-name">core/migrations</div>
-              <div class="mod-path">core/migrations/ — runner.sh + 12 sql versionadas</div>
+              <div class="mod-path">core/migrations/ — runner.sh + 13 sql versionadas</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">Infra</td>
             <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
@@ -425,7 +446,7 @@
           <div class="rm-icon rm-done">✅</div>
           <div style="flex:1">
             <div class="rm-label">DB Migrations</div>
-            <div class="rm-sub">versioned runner + 8 migrations</div>
+            <div class="rm-sub">versioned runner + 13 migrations</div>
           </div>
           <div class="rm-id">SUP-5</div>
         </div>
@@ -476,11 +497,16 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">9 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">10 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-hydra">AUDIT</span>
+            <span class="log-text">Remediation completa — inject.sh, runner.sh, health_sweep, CI integration-test, cleanup 0013, log_append anchor, backlog</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-sup5">SUP-9</span>
             <span class="log-text">audit_log JSONB + audit_trigger() universal + attach_audit_trigger() helper — users/orgs/subscriptions auditadas</span>

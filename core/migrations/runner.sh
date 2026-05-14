@@ -5,6 +5,10 @@
 
 set -euo pipefail
 
+# Siempre ejecutar desde la raíz del repo — independiente de desde dónde se llame
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$REPO_ROOT"
+
 DRY_RUN=false
 [[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true
 
@@ -14,8 +18,8 @@ if [[ -z "$DB_URL" ]]; then
   exit 1
 fi
 
-MIGRATIONS_DIR="$(dirname "$0")/sql"
-SCHEMA_SQL="$(dirname "$0")/../../blueprints/base/004_schema_versions.sql"
+MIGRATIONS_DIR="$REPO_ROOT/core/migrations/sql"
+SCHEMA_SQL="$REPO_ROOT/blueprints/base/004_schema_versions.sql"
 
 psql() { command psql "$DB_URL" "$@"; }
 
@@ -71,3 +75,4 @@ done < <(find "$MIGRATIONS_DIR" -maxdepth 1 -name "*.sql" | sort)
 
 echo ""
 echo "=== Resultado: $TOTAL total | $PENDING aplicadas | $FAILED fallidas ==="
+echo "=== Root: $REPO_ROOT ==="

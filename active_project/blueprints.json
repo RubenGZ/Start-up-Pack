@@ -1,5 +1,5 @@
 {
-  "project": "Start-up Pack (Hydra Base)",
-  "injected_at": "2026-05-13T00:00:00Z",
-  "modules": ["base", "auth", "users", "billing", "health-base", "seed", "rate-limit", "audit", "onboarding", "utils"]
+  "project": "HealthStack_Alpha",
+  "injected_at": "2026-05-14T11:32:18Z",
+  "modules": ["auth","users","billing","health-base"]
 }

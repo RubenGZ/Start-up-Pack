@@ -111,6 +111,10 @@ jobs:
         env:
           DATABASE_URL: postgres://hydra:hydra@localhost:5432/hydra_test
         run: bash core/migrations/runner.sh
+      - name: Load seed data
+        env:
+          PGPASSWORD: hydra
+        run: psql -h localhost -U hydra -d hydra_test -f blueprints/seed/seed.sql
       - name: Smoke test — health_check()
         env:
           PGPASSWORD: hydra

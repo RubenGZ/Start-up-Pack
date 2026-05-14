@@ -6,9 +6,12 @@ version: '3.9'
 
 services:
 
-  # ─── PostgreSQL 16 + pg_cron ──────────────────────────────────────────────
+  # ─── PostgreSQL 16 + pg_cron (imagen custom con postgresql-16-cron) ────────
   db:
-    image: postgres:16
+    build:
+      context: .
+      dockerfile: core/infra/Dockerfile.db
+    image: hydra_db:local
     container_name: hydra_db
     restart: unless-stopped
     environment:
@@ -32,7 +35,7 @@ services:
       retries: 10
       start_period: 10s
 
-  # ─── Migration runner (one-shot) ─────────────────────────────────────────
+  # ─── Migration runner (one-shot) — usa postgres:16 base (sin pg_cron, solo psql)
   migrate:
     image: postgres:16
     container_name: hydra_migrate

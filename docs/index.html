@@ -237,21 +237,20 @@
 
 <!-- ACTIVE PROJECT BANNER -->
 <div class="active-banner">
-  <div class="active-icon">⚡</div>
+  <div class="active-icon">🏥</div>
   <div>
-    <div class="active-name">Proyecto Activo: Start-up Pack (Hydra Base)</div>
-    <div class="active-meta">Inyectado via inject.sh · active_project/blueprints.json · Próximo: ADAPTAR A [Idea]</div>
+    <div class="active-name">Proyecto Activo: HealthStack_Alpha</div>
+    <div class="active-meta">ADAPTAR A ejecutado 2026-05-14 · inject.sh --reset --modules=auth,users,billing,health-base --no-oauth · 4 módulos activos</div>
     <div class="active-modules">
-      <span class="mod-chip active">base</span>
       <span class="mod-chip active">auth</span>
       <span class="mod-chip active">users</span>
       <span class="mod-chip active">billing</span>
       <span class="mod-chip active">health-base</span>
-      <span class="mod-chip active">seed</span>
-      <span class="mod-chip active">rate-limit</span>
-      <span class="mod-chip active">audit</span>
-      <span class="mod-chip active">onboarding</span>
-      <span class="mod-chip active">utils</span>
+      <span class="mod-chip" style="opacity:.35">seed</span>
+      <span class="mod-chip" style="opacity:.35">rate-limit</span>
+      <span class="mod-chip" style="opacity:.35">audit</span>
+      <span class="mod-chip" style="opacity:.35">onboarding</span>
+      <span class="mod-chip" style="opacity:.35">utils</span>
     </div>
   </div>
 </div>
@@ -410,7 +409,7 @@
               <div class="mod-path">active_project/ — startup actual inyectada</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">Runtime</td>
-            <td><span class="status-pill s-wip"><span class="s-dot"></span>hydra-base</span></td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>HealthStack_Alpha</span></td>
             <td class="mod-lines" style="padding-right:1.25rem">inject.sh</td>
           </tr>
         </tbody>
@@ -507,11 +506,16 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">17 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">18 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-sup5">M0</span>
+            <span class="log-text">ADAPTAR A HealthStack_Alpha — inject.sh --no-oauth validado · runner.sh rutas absolutas · Dockerfile.db pg_cron · inject.sh granular</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-sup5">SUP-15</span>
             <span class="log-text">docker-compose.yml — db (pg16+pg_cron) + migrate (one-shot) + pgadmin (profile:tools) + .env.example</span>

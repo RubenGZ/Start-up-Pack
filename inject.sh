@@ -13,14 +13,21 @@ CONFIG="$ACTIVE/blueprints.json"
 DEFAULT_MODULES="base,auth,users,billing,health-base,seed,rate-limit,audit,onboarding,utils"
 MODULES="${DEFAULT_MODULES}"
 RESET=false
+NO_OAUTH=false
+PROJECT_NAME=""
 
 for arg in "$@"; do
   case "$arg" in
-    --modules=*) MODULES="${arg#--modules=}" ;;
-    --reset)     RESET=true ;;
+    --modules=*)  MODULES="${arg#--modules=}" ;;
+    --reset)      RESET=true ;;
+    --no-oauth)   NO_OAUTH=true ;;
+    --project=*)  PROJECT_NAME="${arg#--project=}" ;;
     --help)
-      echo "Uso: bash inject.sh [--modules=mod1,mod2,...] [--reset]"
+      echo "Uso: bash inject.sh [--modules=mod1,mod2,...] [--reset] [--no-oauth] [--project=NombreStartup]"
       echo "Módulos disponibles: base, auth, users, billing, health-base, seed, rate-limit, audit, onboarding, utils"
+      echo "Flags:"
+      echo "  --no-oauth    Excluye oauth.service.sql del módulo auth"
+      echo "  --project=X   Nombre del proyecto activo (actualiza blueprints.json)"
       exit 0 ;;
   esac
 done
@@ -62,7 +69,15 @@ for mod in "${MOD_LIST[@]}"; do
       cp "$SRC"/billing.service.sql "$ACTIVE/services/" 2>/dev/null && echo "OK (schema+service)" || echo "SKIP"
       ;;
     auth)
-      cp "$SRC"/*.sql "$ACTIVE/services/" 2>/dev/null && echo "OK (services)" || echo "SKIP"
+      if $NO_OAUTH; then
+        # Granular: excluir oauth.service.sql
+        for f in auth.service.sql auth.flow.sql auth.context.sql; do
+          cp "$SRC/$f" "$ACTIVE/services/" 2>/dev/null || true
+        done
+        echo "OK (services, sin OAuth)"
+      else
+        cp "$SRC"/*.sql "$ACTIVE/services/" 2>/dev/null && echo "OK (services, con OAuth)" || echo "SKIP"
+      fi
       ;;
     health-base)
       cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
@@ -90,8 +105,12 @@ for mod in "${MOD_LIST[@]}"; do
   INJECTED+=("$mod")
 done
 
-# Preservar campo "project" del blueprints.json existente
-PROJ_NAME=$([ -f "$CONFIG" ] && jq -r '.project // "Hydra Project"' "$CONFIG" 2>/dev/null || echo "Hydra Project")
+# Resolver nombre del proyecto: --project flag > existente en blueprints.json > default
+if [[ -n "$PROJECT_NAME" ]]; then
+  PROJ_NAME="$PROJECT_NAME"
+else
+  PROJ_NAME=$([ -f "$CONFIG" ] && jq -r '.project // "Hydra Project"' "$CONFIG" 2>/dev/null || echo "Hydra Project")
+fi
 
 cat > "$CONFIG" <<EOF
 {
@@ -103,6 +122,8 @@ EOF
 
 echo ""
 echo "=== Inyección completa ==="
-echo "active_project/ listo con: ${INJECTED[*]}"
+echo "Proyecto:  ${PROJ_NAME}"
+echo "Módulos:   ${INJECTED[*]}"
+echo "OAuth:     $( $NO_OAUTH && echo 'NO (--no-oauth)' || echo 'SÍ')"
 echo ""
 echo "Siguiente: export DATABASE_URL=... && bash core/migrations/runner.sh"

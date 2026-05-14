@@ -1,0 +1,9 @@
+# Dockerfile.db — PostgreSQL 16 + pg_cron para Hydra Framework
+# Extiende la imagen oficial añadiendo pg_cron desde apt (no disponible en postgres:16 base)
+FROM postgres:16
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends postgresql-16-cron \
+ && rm -rf /var/lib/apt/lists/*
+
+# pg_cron requiere estar en shared_preload_libraries — se configura vía CMD en compose

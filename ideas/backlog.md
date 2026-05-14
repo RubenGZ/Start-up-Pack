@@ -4,7 +4,7 @@
 - [x] Auth flow completo (magic link + OAuth Google) — `blueprints/auth/` + auth.context.sql (SUP-10)
 - [x] Onboarding multi-step para nuevos orgs — `blueprints/onboarding/onboarding.sql` (SUP-11)
 - [ ] Dashboard principal por org
-- [ ] Gestión de miembros (invite, roles, remove)
+- [x] Gestión de miembros (invite, roles, remove) — `blueprints/users/member_management.sql` (SUP-13)
 - [ ] Billing portal (Stripe Customer Portal)
 - [ ] Notificaciones in-app + email
 

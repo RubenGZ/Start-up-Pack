@@ -30,9 +30,9 @@
         },
         "users": {
           "path": "blueprints/users/",
-          "files": ["001_users.sql", "002_organizations.sql"],
+          "files": ["001_users.sql", "002_organizations.sql", "member_management.sql"],
           "status": "stable",
-          "migrations": ["0002_users.sql", "0003_organizations.sql"]
+          "migrations": ["0002_users.sql", "0003_organizations.sql", "0017_member_management.sql"]
         },
         "billing": {
           "path": "blueprints/billing/",

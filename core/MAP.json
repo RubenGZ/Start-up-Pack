@@ -64,6 +64,12 @@
           "status": "stable",
           "migrations": ["0012_audit.sql"]
         },
+        "onboarding": {
+          "path": "blueprints/onboarding/",
+          "files": ["onboarding.sql"],
+          "status": "stable",
+          "migrations": ["0015_onboarding.sql"]
+        },
         "utils": {
           "path": "blueprints/utils/",
           "files": ["helpers.sql"],

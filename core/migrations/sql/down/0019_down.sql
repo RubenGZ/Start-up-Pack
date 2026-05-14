@@ -1,0 +1,13 @@
+-- 0019_down.sql — Reverso de 0019_notifications
+-- Elimina sistema de notificaciones
+
+DROP FUNCTION IF EXISTS ack_notification_failed(UUID, TEXT) CASCADE;
+DROP FUNCTION IF EXISTS ack_notification_sent(UUID) CASCADE;
+DROP FUNCTION IF EXISTS dequeue_notifications(TEXT, INT) CASCADE;
+DROP FUNCTION IF EXISTS list_notifications(UUID, UUID, BOOLEAN, INT) CASCADE;
+DROP FUNCTION IF EXISTS get_unread_count(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS mark_all_read(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS mark_as_read(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS send_notification(UUID, UUID, TEXT, TEXT, TEXT, TEXT, JSONB) CASCADE;
+DROP TABLE IF EXISTS notification_queue CASCADE;
+DROP TABLE IF EXISTS notifications CASCADE;

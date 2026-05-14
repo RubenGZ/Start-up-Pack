@@ -79,6 +79,7 @@ jobs:
                    blueprints/onboarding/onboarding.sql \
                    blueprints/notifications/notifications.sql \
                    blueprints/api-keys/api_keys.sql \
+                   blueprints/dashboard/dashboard.sql \
                    blueprints/auth/auth.service.sql blueprints/auth/auth.context.sql \
                    blueprints/utils/helpers.sql \
                    active_project/blueprints.json \
@@ -137,3 +138,11 @@ jobs:
           PGPASSWORD: hydra
         run: |
           psql -h localhost -U hydra -d hydra_test -c "SELECT run_all_cleanups();"
+      - name: Smoke test — org_dashboard()
+        env:
+          PGPASSWORD: hydra
+        run: |
+          result=$(psql -h localhost -U hydra -d hydra_test -t -c \
+            "SELECT org_dashboard('a0000000-0000-0000-0000-000000000001'::UUID)->'org_name';")
+          echo "org_dashboard org_name: $result"
+          echo "$result" | grep -q '"' || (echo "ERROR: org_dashboard failed" && exit 1)

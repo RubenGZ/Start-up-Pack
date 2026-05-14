@@ -82,6 +82,24 @@
           "status": "stable",
           "migrations": ["0019_notifications.sql"]
         },
+        "dashboard": {
+          "path": "blueprints/dashboard/",
+          "files": ["dashboard.sql"],
+          "status": "stable",
+          "migrations": ["0021_dashboard.sql"]
+        },
+        "billing-portal": {
+          "path": "blueprints/billing/",
+          "files": ["billing.portal.sql"],
+          "status": "stable",
+          "migrations": ["0022_billing_portal.sql"]
+        },
+        "slack": {
+          "path": "blueprints/notifications/",
+          "files": ["slack.sql"],
+          "status": "stable",
+          "migrations": ["0023_slack.sql"]
+        },
         "utils": {
           "path": "blueprints/utils/",
           "files": ["helpers.sql"],

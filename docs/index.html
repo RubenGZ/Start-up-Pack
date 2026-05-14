@@ -282,7 +282,7 @@
   <div class="stat green">
     <div class="stat-label">Sprint</div>
     <div class="stat-value">Done</div>
-    <div class="stat-sub">SUP-6→15 completados ✅</div>
+    <div class="stat-sub">SUP-6→23 completados ✅</div>
   </div>
 </div>
 
@@ -293,7 +293,7 @@
   <div class="panel">
     <div class="panel-header">
       <span class="panel-title">Hydra Blueprints</span>
-      <span style="color:var(--muted);font-size:.7rem">blueprints/ · 12 módulos · inject.sh</span>
+      <span style="color:var(--muted);font-size:.7rem">blueprints/ · 13 módulos · inject.sh</span>
     </div>
     <div style="padding: .5rem 0;">
       <table class="modules">
@@ -417,7 +417,7 @@
           <tr>
             <td style="padding-left:1.25rem">
               <div class="mod-name">core/migrations</div>
-              <div class="mod-path">core/migrations/ — runner.sh + 20 sql versionadas</div>
+              <div class="mod-path">core/migrations/ — runner.sh (--rollback=N) + 24 sql versionadas + 24 down scripts</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">Infra</td>
             <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
@@ -526,11 +526,46 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">20 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">27 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-23</span>
+            <span class="log-text">audit_log particionado RANGE(created_at) — create_audit_partition() + ensure_next_audit_partition() + 0024_audit_partitioning.sql</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-22</span>
+            <span class="log-text">slack.sql — org_slack_config + set_slack_webhook() + send_slack_notification() → encola en notification_queue canal slack</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-21</span>
+            <span class="log-text">billing.portal.sql — billing_portal_sessions + request_billing_portal() + fulfill_billing_portal() + get_billing_portal_url()</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-20</span>
+            <span class="log-text">dashboard.sql — org_dashboard() + billing_snapshot() + members_summary() + recent_activity() + api_keys_summary() + unread_notifications_summary()</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-19</span>
+            <span class="log-text">Rollback migrations — 24 down scripts en core/migrations/sql/down/ + runner.sh --rollback=N flag</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-hydra">AUDIT</span>
+            <span class="log-text">Audit Sprint 2 completo — backlog.md 20→20 migrations, active_project reset a Hydra Base (12 módulos), 0 violaciones 250L</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-18</span>
+            <span class="log-text">README reescrito — patrón credenciales por entorno (local/.env · CI/dummy · prod/platform vars) sin GitHub Secrets</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-sup5">SUP-17</span>
             <span class="log-text">api_keys.sql (222L) — hk_live_* prefix+hash, create_api_key() + validate_api_key() + revoke + list + check_key_scope() + usage log</span>

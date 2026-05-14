@@ -1,0 +1,7 @@
+-- 0023_down.sql — Reverso de 0023_slack
+
+DROP FUNCTION IF EXISTS disable_slack(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS has_slack_configured(UUID) CASCADE;
+DROP FUNCTION IF EXISTS send_slack_notification(UUID, TEXT, JSONB, UUID) CASCADE;
+DROP FUNCTION IF EXISTS set_slack_webhook(UUID, TEXT, TEXT, UUID) CASCADE;
+DROP TABLE IF EXISTS org_slack_config CASCADE;

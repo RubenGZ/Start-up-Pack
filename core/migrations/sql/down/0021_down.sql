@@ -1,0 +1,8 @@
+-- 0021_down.sql — Reverso de 0021_dashboard
+
+DROP FUNCTION IF EXISTS org_dashboard(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS unread_notifications_summary(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS api_keys_summary(UUID) CASCADE;
+DROP FUNCTION IF EXISTS recent_activity(UUID, INT) CASCADE;
+DROP FUNCTION IF EXISTS members_summary(UUID) CASCADE;
+DROP FUNCTION IF EXISTS billing_snapshot(UUID) CASCADE;

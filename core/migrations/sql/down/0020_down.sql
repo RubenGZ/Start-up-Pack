@@ -1,0 +1,10 @@
+-- 0020_down.sql — Reverso de 0020_api_keys
+-- Elimina api_keys y api_key_usage
+
+DROP FUNCTION IF EXISTS check_key_scope(UUID, TEXT) CASCADE;
+DROP FUNCTION IF EXISTS list_org_api_keys(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS revoke_api_key(UUID, UUID) CASCADE;
+DROP FUNCTION IF EXISTS validate_api_key(TEXT, TEXT, INET) CASCADE;
+DROP FUNCTION IF EXISTS create_api_key(UUID, UUID, TEXT, TEXT[], INTERVAL, TEXT) CASCADE;
+DROP TABLE IF EXISTS api_key_usage CASCADE;
+DROP TABLE IF EXISTS api_keys CASCADE;

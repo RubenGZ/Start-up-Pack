@@ -240,20 +240,20 @@
   <div class="active-icon">🏥</div>
   <div>
     <div class="active-name">Proyecto Activo: HealthStack_Pro</div>
-    <div class="active-meta">HYDRA-V1.1 · inject.sh --reset --modules=auth,users,billing,health-base --project=HealthStack_Pro · 4 módulos · 14 archivos inyectados · validación final OK</div>
+    <div class="active-meta">SUP-24 · 6 módulos · 16 archivos · patients + medical_records encriptados · 50 pacientes demo (pgp_sym_encrypt)</div>
     <div class="active-modules">
       <span class="mod-chip active">auth</span>
       <span class="mod-chip active">users</span>
       <span class="mod-chip active">billing</span>
       <span class="mod-chip active">health-base</span>
-      <span class="mod-chip" style="opacity:.35">seed</span>
+      <span class="mod-chip active">seed</span>
+      <span class="mod-chip active">healthstack</span>
       <span class="mod-chip" style="opacity:.35">rate-limit</span>
       <span class="mod-chip" style="opacity:.35">audit</span>
       <span class="mod-chip" style="opacity:.35">onboarding</span>
       <span class="mod-chip" style="opacity:.35">notifications</span>
       <span class="mod-chip" style="opacity:.35">api-keys</span>
       <span class="mod-chip" style="opacity:.35">dashboard</span>
-      <span class="mod-chip" style="opacity:.35">utils</span>
     </div>
   </div>
 </div>
@@ -527,11 +527,16 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">28 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">29 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-24</span>
+            <span class="log-text">patients_seed.sql (134L) — patients + medical_records + get_patient_record() · 50 pacientes ficticios pgp_sym_encrypt · HealthStack_Pro</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-hydra">HYDRA-V1.1</span>
             <span class="log-text">Framework consolidado, inyección validada — HealthStack_Pro · 4 módulos · 14 archivos · 0 residuos · all_checks_passed</span>

@@ -75,6 +75,8 @@ jobs:
                    blueprints/rate-limit/rate_limit.sql \
                    blueprints/rate-limit/rate_limit_cleanup.sql \
                    blueprints/audit/audit.sql \
+                   blueprints/onboarding/onboarding.sql \
+                   blueprints/auth/auth.service.sql blueprints/auth/auth.context.sql \
                    blueprints/utils/helpers.sql \
                    active_project/blueprints.json \
                    ideas/backlog.md; do

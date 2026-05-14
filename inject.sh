@@ -10,7 +10,7 @@ BLUEPRINTS="$REPO_ROOT/blueprints"
 ACTIVE="$REPO_ROOT/active_project"
 CONFIG="$ACTIVE/blueprints.json"
 
-DEFAULT_MODULES="base,auth,users,billing,health-base,seed,rate-limit,audit,utils"
+DEFAULT_MODULES="base,auth,users,billing,health-base,seed,rate-limit,audit,onboarding,utils"
 MODULES="${DEFAULT_MODULES}"
 RESET=false
 
@@ -20,7 +20,7 @@ for arg in "$@"; do
     --reset)     RESET=true ;;
     --help)
       echo "Uso: bash inject.sh [--modules=mod1,mod2,...] [--reset]"
-      echo "Módulos disponibles: base, auth, users, billing, health-base, seed, rate-limit, audit, utils"
+      echo "Módulos disponibles: base, auth, users, billing, health-base, seed, rate-limit, audit, onboarding, utils"
       exit 0 ;;
   esac
 done
@@ -74,6 +74,9 @@ for mod in "${MOD_LIST[@]}"; do
       cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
       ;;
     audit)
+      cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
+      ;;
+    onboarding)
       cp "$SRC"/*.sql "$ACTIVE/schemas/" 2>/dev/null && echo "OK (schemas)" || echo "SKIP"
       ;;
     utils)

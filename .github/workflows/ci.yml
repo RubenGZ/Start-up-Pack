@@ -80,6 +80,8 @@ jobs:
                    blueprints/notifications/notifications.sql \
                    blueprints/api-keys/api_keys.sql \
                    blueprints/dashboard/dashboard.sql \
+                   blueprints/billing/billing.portal.sql \
+                   blueprints/notifications/slack.sql \
                    blueprints/auth/auth.service.sql blueprints/auth/auth.context.sql \
                    blueprints/utils/helpers.sql \
                    active_project/blueprints.json \

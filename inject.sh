@@ -66,7 +66,9 @@ for mod in "${MOD_LIST[@]}"; do
       ;;
     billing)
       cp "$SRC"/[0-9]*.sql "$ACTIVE/schemas/" 2>/dev/null || true
-      cp "$SRC"/billing.service.sql "$ACTIVE/services/" 2>/dev/null && echo "OK (schema+service)" || echo "SKIP"
+      cp "$SRC"/billing.service.sql "$ACTIVE/services/" 2>/dev/null || true
+      cp "$SRC"/billing.portal.sql "$ACTIVE/services/" 2>/dev/null || true
+      cp "$SRC"/stripe.webhooks.sql "$ACTIVE/services/" 2>/dev/null && echo "OK (schemas+services)" || echo "SKIP"
       ;;
     auth)
       if $NO_OAUTH; then

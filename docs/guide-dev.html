@@ -117,7 +117,7 @@ STRIPE_WEBHOOK_SECRET=<span class="str">&lt;desde dashboard.stripe.com/webhooks&
 
 <span class="comment"># Inyección selectiva (recomendada)</span>
 <span class="cmd">bash</span> inject.sh <span class="flag">--reset</span> \
-  <span class="flag">--modules=</span><span class="str">auth,users,billing,health-base</span> \
+  <span class="flag">--modules=</span><span class="str">auth,users,billing,health-optional</span> \
   <span class="flag">--project=</span><span class="str">MiStartup</span> \
   <span class="flag">--no-oauth</span>   <span class="comment"># excluye Google OAuth si no lo necesitas</span></code></pre>
   <div class="module-grid">
@@ -125,7 +125,7 @@ STRIPE_WEBHOOK_SECRET=<span class="str">&lt;desde dashboard.stripe.com/webhooks&
     <div class="mod"><div class="mod-name">auth</div><div class="mod-desc">Magic link, OAuth Google, sesiones</div></div>
     <div class="mod"><div class="mod-name">users</div><div class="mod-desc">users, organizations, RBAC members</div></div>
     <div class="mod"><div class="mod-name">billing</div><div class="mod-desc">Subscriptions, Stripe webhooks, portal</div></div>
-    <div class="mod"><div class="mod-name">health-base</div><div class="mod-desc">health_check() → JSON status</div></div>
+    <div class="mod"><div class="mod-name">health-optional</div><div class="mod-desc">health_check() → JSON status</div></div>
     <div class="mod"><div class="mod-name">rate-limit</div><div class="mod-desc">Sliding window por org/endpoint/plan</div></div>
     <div class="mod"><div class="mod-name">audit</div><div class="mod-desc">Trigger universal → audit_log JSONB</div></div>
     <div class="mod"><div class="mod-name">onboarding</div><div class="mod-desc">Progress multi-step + invitaciones</div></div>
@@ -186,7 +186,7 @@ SELECT org_dashboard(
   <p>Cuando quieras reutilizar Hydra para un nuevo proyecto, usa el flujo ADAPTAR A:</p>
   <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="comment"># Reset + inyectar módulos de tu nueva startup</span>
 <span class="cmd">bash</span> inject.sh <span class="flag">--reset</span> \
-  <span class="flag">--modules=</span><span class="str">auth,users,billing,health-base,audit</span> \
+  <span class="flag">--modules=</span><span class="str">auth,users,billing,health-optional,audit</span> \
   <span class="flag">--project=</span><span class="str">NuevaStartup</span>
 
 <span class="comment"># Aplicar a la DB</span>

@@ -1,6 +1,6 @@
 #!/bin/bash
 # inject.sh — Hydra Blueprint Injector
-# Uso: bash inject.sh [--modules auth,users,billing,health-base,seed,rate-limit,audit,utils] [--reset]
+# Uso: bash inject.sh [--modules auth,users,billing,health-optional,seed,rate-limit,audit,utils] [--reset]
 # Clona blueprints seleccionados hacia active_project/
 
 set -euo pipefail

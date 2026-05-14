@@ -9,7 +9,7 @@ Carpeta volátil. Contiene los blueprints inyectados para la startup activa.
 bash inject.sh
 
 # Inyectar módulos específicos
-bash inject.sh --modules=auth,users,health-base
+bash inject.sh --modules=auth,users,health-optional
 
 # Reset completo + reinyectar
 bash inject.sh --reset --modules=auth,users,billing,utils

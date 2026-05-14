@@ -40,10 +40,11 @@
           "status": "stable",
           "migrations": ["0004_subscriptions.sql", "0007_billing.sql", "0016_stripe_webhooks.sql"]
         },
-        "health-base": {
-          "path": "blueprints/health-base/",
-          "files": ["health.sql"],
+        "health-optional": {
+          "path": "blueprints/health-optional/",
+          "files": ["health.sql", "patients_seed.sql"],
           "status": "stable",
+          "note": "opt-in — health_check() endpoint + domain-specific blueprints",
           "migrations": ["0009_health.sql"]
         },
         "seed": {

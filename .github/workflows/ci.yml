@@ -71,7 +71,7 @@ jobs:
                    blueprints/auth/auth.flow.sql blueprints/auth/oauth.service.sql \
                    blueprints/users/001_users.sql blueprints/users/member_management.sql \
                    blueprints/billing/billing.service.sql blueprints/billing/stripe.webhooks.sql \
-                   blueprints/health-base/health.sql \
+                   blueprints/health-optional/health.sql \
                    blueprints/seed/seed.sql \
                    blueprints/rate-limit/rate_limit.sql \
                    blueprints/rate-limit/rate_limit_cleanup.sql \
@@ -148,3 +148,37 @@ jobs:
             "SELECT org_dashboard('a0000000-0000-0000-0000-000000000001'::UUID)->'org_name';")
           echo "org_dashboard org_name: $result"
           echo "$result" | grep -q '"' || (echo "ERROR: org_dashboard failed" && exit 1)
+      - name: Install pgTAP
+        run: |
+          sudo apt-get install -y postgresql-16-pgtap 2>/dev/null || \
+          pip install pgTAP 2>/dev/null || \
+          psql -h localhost -U hydra -d hydra_test -c \
+            "CREATE EXTENSION IF NOT EXISTS pgtap;" 2>/dev/null || true
+        env:
+          PGPASSWORD: hydra
+      - name: Run pgTAP unit tests
+        env:
+          PGPASSWORD: hydra
+          DATABASE_URL: postgres://hydra:hydra@localhost:5432/hydra_test
+        run: |
+          echo "=== pgTAP Test Suite ==="
+          TOTAL=0; PASSED=0; FAILED=0
+          for f in $(ls core/tests/*.sql 2>/dev/null | sort); do
+            fname=$(basename "$f")
+            echo "▶ $fname"
+            output=$(psql -h localhost -U hydra -d hydra_test -f "$f" 2>&1)
+            file_pass=$(echo "$output" | grep -c "^ok " || true)
+            file_fail=$(echo "$output" | grep -c "^not ok " || true)
+            TOTAL=$((TOTAL + file_pass + file_fail))
+            PASSED=$((PASSED + file_pass))
+            FAILED=$((FAILED + file_fail))
+            if [ "$file_fail" -gt 0 ]; then
+              echo "$output" | grep -E "^(not ok|#)"
+              echo "❌ $fname — $file_pass passed, $file_fail failed"
+            else
+              echo "✅ $fname — $file_pass tests passed"
+            fi
+          done
+          echo "────────────────────────"
+          echo "Results: $PASSED/$TOTAL passed"
+          [ "$FAILED" -eq 0 ] || (echo "SUITE FAILED: $FAILED tests failed" && exit 1)

@@ -70,6 +70,12 @@
           "status": "stable",
           "migrations": ["0015_onboarding.sql"]
         },
+        "notifications": {
+          "path": "blueprints/notifications/",
+          "files": ["notifications.sql"],
+          "status": "stable",
+          "migrations": ["0019_notifications.sql"]
+        },
         "utils": {
           "path": "blueprints/utils/",
           "files": ["helpers.sql"],

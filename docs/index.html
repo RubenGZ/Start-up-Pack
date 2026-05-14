@@ -250,6 +250,7 @@
       <span class="mod-chip" style="opacity:.35">rate-limit</span>
       <span class="mod-chip" style="opacity:.35">audit</span>
       <span class="mod-chip" style="opacity:.35">onboarding</span>
+      <span class="mod-chip" style="opacity:.35">notifications</span>
       <span class="mod-chip" style="opacity:.35">utils</span>
     </div>
   </div>
@@ -259,13 +260,13 @@
 <div class="stats">
   <div class="stat green">
     <div class="stat-label">Blueprints</div>
-    <div class="stat-value">10</div>
-    <div class="stat-sub">base · auth · users · billing · health · seed · rate-limit · audit · onboarding · utils</div>
+    <div class="stat-value">11</div>
+    <div class="stat-sub">base · auth · users · billing · health · seed · rate-limit · audit · onboarding · notifications · utils</div>
   </div>
   <div class="stat blue">
     <div class="stat-label">Migrations</div>
-    <div class="stat-value">18</div>
-    <div class="stat-sub">0001 → 0018 · secuencia completa</div>
+    <div class="stat-value">19</div>
+    <div class="stat-sub">0001 → 0019 · secuencia completa</div>
   </div>
   <div class="stat purple">
     <div class="stat-label">CI/CD Jobs</div>
@@ -291,7 +292,7 @@
   <div class="panel">
     <div class="panel-header">
       <span class="panel-title">Hydra Blueprints</span>
-      <span style="color:var(--muted);font-size:.7rem">blueprints/ · 10 módulos · inject.sh</span>
+      <span style="color:var(--muted);font-size:.7rem">blueprints/ · 11 módulos · inject.sh</span>
     </div>
     <div style="padding: .5rem 0;">
       <table class="modules">
@@ -396,8 +397,17 @@
           </tr>
           <tr>
             <td style="padding-left:1.25rem">
+              <div class="mod-name">notifications</div>
+              <div class="mod-path">blueprints/notifications/ — in-app + email queue + dequeue_notifications()</div>
+            </td>
+            <td style="color:var(--muted);font-size:.7rem">Service</td>
+            <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
+            <td class="mod-lines" style="padding-right:1.25rem">10</td>
+          </tr>
+          <tr>
+            <td style="padding-left:1.25rem">
               <div class="mod-name">core/migrations</div>
-              <div class="mod-path">core/migrations/ — runner.sh + 18 sql versionadas</div>
+              <div class="mod-path">core/migrations/ — runner.sh + 19 sql versionadas</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">Infra</td>
             <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
@@ -455,7 +465,7 @@
           <div class="rm-icon rm-done">✅</div>
           <div style="flex:1">
             <div class="rm-label">DB Migrations</div>
-            <div class="rm-sub">versioned runner + 18 migrations</div>
+            <div class="rm-sub">versioned runner + 19 migrations</div>
           </div>
           <div class="rm-id">SUP-5</div>
         </div>
@@ -506,11 +516,16 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">18 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">19 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-16</span>
+            <span class="log-text">notifications.sql (246L) — send_notification() + queue + mark_as_read() + dequeue_notifications() + ack pattern</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-sup5">M0</span>
             <span class="log-text">ADAPTAR A HealthStack_Alpha — inject.sh --no-oauth validado · runner.sh rutas absolutas · Dockerfile.db pg_cron · inject.sh granular</span>

@@ -6,7 +6,7 @@
 - [ ] Dashboard principal por org
 - [x] Gestión de miembros (invite, roles, remove) — `blueprints/users/member_management.sql` (SUP-13)
 - [ ] Billing portal (Stripe Customer Portal)
-- [ ] Notificaciones in-app + email
+- [x] Notificaciones in-app + email — `blueprints/notifications/notifications.sql` (SUP-16)
 
 ## Infraestructura
 - [x] CI/CD pipeline (GitHub Actions) — `ci.yml` + `notify.yml`

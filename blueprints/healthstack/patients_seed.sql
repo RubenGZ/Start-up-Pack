@@ -54,7 +54,7 @@ $$;
 -- 4. Seed: 50 pacientes demo con historiales encriptados
 DO $$
 DECLARE
-  v_org  UUID := 'a0000000-0000-0000-0000-000000000001';
+  v_org  UUID := '00000000-0000-0000-0000-000000000001';
   v_key  TEXT := 'DEMO_KEY_healthstack_CHANGE_IN_PROD';
   v_pid  UUID;
   names  TEXT[] := ARRAY[

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydra Framework — Guía para founders</title>
+<style>
+  :root {
+    --bg: #f8fafc; --surface: #ffffff; --border: #e2e8f0;
+    --accent: #0ea5e9; --accent2: #7c3aed; --green: #10b981;
+    --text: #1e293b; --muted: #64748b; --dim: #f1f5f9;
+    --warn: #f59e0b; --warn-bg: #fffbeb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.7; padding: 2.5rem 2rem; max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 1.9rem; color: var(--text); margin-bottom: .2rem; font-weight: 800; }
+  .subtitle { color: var(--muted); font-size: .95rem; margin-bottom: 2.5rem; }
+  .badge { display: inline-block; background: var(--accent); color: #fff; font-size: .7rem; font-weight: 700; padding: .2rem .6rem; border-radius: 99px; margin-left: .5rem; vertical-align: middle; }
+
+  /* Steps */
+  .step { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.8rem 1.8rem 1.5rem; margin-bottom: 1.5rem; position: relative; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .step-header { display: flex; align-items: center; gap: .9rem; margin-bottom: 1rem; }
+  .step-icon { font-size: 2rem; line-height: 1; }
+  .step-meta { flex: 1; }
+  .step-num { font-size: .7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .step-title { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+  .step p { color: var(--muted); font-size: .95rem; margin-bottom: .75rem; }
+  .step p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); }
+
+  /* Analogy box */
+  .analogy { background: #f0f9ff; border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: .8rem 1rem; margin: .75rem 0; font-size: .9rem; color: #0c4a6e; }
+
+  /* Module checklist */
+  .module-list { list-style: none; margin-top: .75rem; display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
+  .module-list li { background: var(--dim); border-radius: 8px; padding: .55rem .8rem; font-size: .85rem; display: flex; align-items: flex-start; gap: .5rem; }
+  .module-list li .icon { font-size: 1rem; flex-shrink: 0; }
+  .module-list li .mod-name { font-weight: 700; color: var(--text); display: block; font-size: .82rem; }
+  .module-list li .mod-desc { color: var(--muted); font-size: .77rem; }
+
+  /* Day-1 delivery list */
+  .delivers { list-style: none; margin-top: .75rem; }
+  .delivers li { display: flex; align-items: baseline; gap: .6rem; padding: .4rem 0; border-bottom: 1px solid var(--border); font-size: .9rem; }
+  .delivers li:last-child { border-bottom: none; }
+  .delivers li .check { color: var(--green); font-size: 1rem; flex-shrink: 0; }
+  .delivers li .label { font-weight: 600; color: var(--text); min-width: 160px; }
+  .delivers li .desc { color: var(--muted); font-size: .85rem; }
+
+  /* CTA box */
+  .cta { background: linear-gradient(135deg, #ede9fe 0%, #dbeafe 100%); border-radius: 12px; padding: 1.3rem 1.5rem; margin-top: .75rem; }
+  .cta .cta-title { font-weight: 700; font-size: 1rem; color: var(--accent2); margin-bottom: .4rem; }
+  .cta p { color: #4c1d95; font-size: .88rem; margin-bottom: 0; }
+  .cta a { color: var(--accent2); font-weight: 600; }
+
+  /* Tip */
+  .tip { background: var(--warn-bg); border-left: 3px solid var(--warn); border-radius: 0 8px 8px 0; padding: .65rem .9rem; font-size: .85rem; color: #78350f; margin-top: .75rem; }
+
+  /* What you need table */
+  .needs { width: 100%; border-collapse: collapse; margin-top: .75rem; font-size: .88rem; }
+  .needs td { padding: .55rem .75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .needs td:first-child { width: 36%; font-weight: 600; color: var(--text); }
+  .needs td:last-child { color: var(--muted); }
+  .needs tr:last-child td { border-bottom: none; }
+
+  /* Command pill */
+  .cmd-pill { display: inline-block; background: #1e293b; color: #38bdf8; font-family: 'SF Mono','Fira Code',monospace; font-size: .82rem; padding: .3rem .7rem; border-radius: 6px; margin: .3rem 0; }
+
+  /* Result */
+  .result { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: .75rem 1rem; margin-top: .75rem; font-size: .85rem; color: #166534; }
+  .result-label { font-weight: 700; color: var(--green); font-size: .75rem; margin-bottom: .25rem; text-transform: uppercase; letter-spacing: .06em; }
+
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    .module-list { grid-template-columns: 1fr; }
+    .delivers li { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Hydra Framework <span class="badge">v1.1</span></h1>
+<p class="subtitle">Guía para founders · Sin código · De cero a tu startup en menos de un día</p>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-icon">🏗️</div>
+    <div class="step-meta">
+      <div class="step-num">Paso 1 de 6</div>
+      <div class="step-title">¿Qué es Hydra Framework?</div>
+    </div>
+  </div>
+  <p>Cuando construyes una startup, el 80% del trabajo inicial es siempre el mismo: login de usuarios, gestión de cuentas, pagos, permisos, registros de actividad… Hydra ya lo tiene construido y probado.</p>
+  <div class="analogy">
+    💡 <strong>Analogía:</strong> Piensa en Hydra como los cimientos y la estructura de un edificio. Tú no tienes que verter el hormigón ni levantar las paredes maestras — llegas y empiezas a decorar y amueblar tu piso directamente.
+  </div>
+  <p>Lo que hace Hydra por ti: <strong>base de datos lista</strong>, <strong>autenticación lista</strong>, <strong>facturación lista</strong>, <strong>seguridad lista</strong>. Tu equipo empieza desde la capa de producto, no desde cero.</p>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-icon">📋</div>
+    <div class="step-meta">
+      <div class="step-num">Paso 2 de 6</div>
+      <div class="step-title">¿Qué necesitas para empezar?</div>
+    </div>
+  </div>
+  <p>Casi nada. Hydra está pensado para que un desarrollador lo levante en menos de una hora.</p>
+  <table class="needs">
+    <tr>
+      <td>🐳 Docker Desktop</td>
+      <td>Descarga gratuita en docker.com — instala y listo. Sirve para ejecutar la base de datos sin configuración.</td>
+    </tr>
+    <tr>
+      <td>👨‍💻 Un desarrollador</td>
+      <td>Cualquier dev backend o fullstack puede manejarlo. No requiere especialista en bases de datos.</td>
+    </tr>
+    <tr>
+      <td>📦 El repositorio</td>
+      <td>Acceso al repo de GitHub: <strong>RubenGZ/Start-up-Pack</strong>. Tu dev lo clona en 30 segundos.</td>
+    </tr>
+    <tr>
+      <td>💳 Stripe (opcional)</td>
+      <td>Solo si vas a cobrar desde el día 1. Cuenta gratuita en stripe.com, coges las claves y listo.</td>
+    </tr>
+  </table>
+  <div class="tip">⚠️ <strong>Para founders no técnicos:</strong> muestra esta guía a tu CTO o dev de confianza. El tiempo estimado de setup es 30–60 minutos la primera vez.</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-icon">🚀</div>
+    <div class="step-meta">
+      <div class="step-num">Paso 3 de 6</div>
+      <div class="step-title">Arrancar en 1 comando</div>
+    </div>
+  </div>
+  <p>Tu dev ejecuta esto y la base de datos arranca sola, aplica todas las migraciones y queda lista para conectar tu aplicación:</p>
+  <div style="margin: .75rem 0;">
+    <span class="cmd-pill">docker compose up -d</span>
+  </div>
+  <div class="result">
+    <div class="result-label">✅ Qué ocurre automáticamente</div>
+    PostgreSQL 16 arranca en un contenedor aislado.<br>
+    Se aplican las 24 migraciones del framework (usuarios, billing, auditoría…).<br>
+    La base de datos queda lista en <strong>~30 segundos</strong>.
+  </div>
+  <div class="analogy">
+    💡 <strong>Analogía:</strong> Es como llegar a una oficina donde el electricista, el fontanero y el carpintero ya terminaron su trabajo. Tú solo enchufas los ordenadores y empiezas a trabajar.
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-icon">🧩</div>
+    <div class="step-meta">
+      <div class="step-num">Paso 4 de 6</div>
+      <div class="step-title">Elige qué necesita tu startup</div>
+    </div>
+  </div>
+  <p>No tienes que usar todo. Hydra tiene <strong>12 módulos</strong> — activas solo los que necesitas para tu idea. El resto no se instala.</p>
+  <ul class="module-list">
+    <li>
+      <span class="icon">🔑</span>
+      <div><span class="mod-name">auth</span><span class="mod-desc">Login por email mágico y Google. Sin contraseñas.</span></div>
+    </li>
+    <li>
+      <span class="icon">👥</span>
+      <div><span class="mod-name">users</span><span class="mod-desc">Perfiles de usuario, equipos y roles (admin, miembro…).</span></div>
+    </li>
+    <li>
+      <span class="icon">💳</span>
+      <div><span class="mod-name">billing</span><span class="mod-desc">Planes, suscripciones y portal de facturación con Stripe.</span></div>
+    </li>
+    <li>
+      <span class="icon">❤️</span>
+      <div><span class="mod-name">health-base</span><span class="mod-desc">Estado del sistema en tiempo real para monitoreo.</span></div>
+    </li>
+    <li>
+      <span class="icon">🛡️</span>
+      <div><span class="mod-name">rate-limit</span><span class="mod-desc">Protección automática contra abuso de la API.</span></div>
+    </li>
+    <li>
+      <span class="icon">📋</span>
+      <div><span class="mod-name">audit</span><span class="mod-desc">Historial de quién hizo qué y cuándo (RGPD-friendly).</span></div>
+    </li>
+    <li>
+      <span class="icon">🎯</span>
+      <div><span class="mod-name">onboarding</span><span class="mod-desc">Flujo de bienvenida multi-paso e invitaciones a equipos.</span></div>
+    </li>
+    <li>
+      <span class="icon">🔔</span>
+      <div><span class="mod-name">notifications</span><span class="mod-desc">Notificaciones in-app, email y Slack automáticos.</span></div>
+    </li>
+    <li>
+      <span class="icon">🗝️</span>
+      <div><span class="mod-name">api-keys</span><span class="mod-desc">Claves de API para tus clientes, con revocación y uso.</span></div>
+    </li>
+    <li>
+      <span class="icon">📊</span>
+      <div><span class="mod-name">dashboard</span><span class="mod-desc">Métricas por organización: billing, actividad, API.</span></div>
+    </li>
+    <li>
+      <span class="icon">⚙️</span>
+      <div><span class="mod-name">base</span><span class="mod-desc">Funciones comunes, UUIDs y timestamps. Siempre incluido.</span></div>
+    </li>
+    <li>
+      <span class="icon">🌱</span>
+      <div><span class="mod-name">seed</span><span class="mod-desc">Datos de prueba para demos y desarrollo. Solo en dev.</span></div>
+    </li>
+  </ul>
+  <div class="tip">💡 <strong>¿No sabes cuáles elegir?</strong> Para la mayoría de SaaS: <strong>auth + users + billing + health-base</strong> es el punto de partida ideal.</div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-icon">🎁</div>
+    <div class="step-meta">
+      <div class="step-num">Paso 5 de 6</div>
+      <div class="step-title">¿Qué tienes listo el Día 1?</div>
+    </div>
+  </div>
+  <p>Con los módulos básicos activados, tu startup ya dispone de todo esto <strong>sin escribir una sola línea de código</strong>:</p>
+  <ul class="delivers">
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Login seguro</span>
+      <span class="desc">Magic links por email + OAuth Google, sin contraseñas que gestionar.</span>
+    </li>
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Multi-tenant</span>
+      <span class="desc">Tus clientes tienen organizaciones separadas con roles (admin, miembro, viewer).</span>
+    </li>
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Facturación</span>
+      <span class="desc">Planes free/pro/enterprise, upgrades, portal de cliente con Stripe.</span>
+    </li>
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Rate limiting</span>
+      <span class="desc">Protección automática: cada plan tiene sus límites de uso definidos.</span>
+    </li>
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Auditoría completa</span>
+      <span class="desc">Registro automático de cada acción para cumplimiento y debugging.</span>
+    </li>
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Health check</span>
+      <span class="desc">Endpoint de estado del sistema para uptime monitoring desde el día 1.</span>
+    </li>
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Dashboard de métricas</span>
+      <span class="desc">Datos de uso, facturación y actividad por organización en tiempo real.</span>
+    </li>
+    <li>
+      <span class="check">✅</span>
+      <span class="label">Notificaciones</span>
+      <span class="desc">Sistema de alertas in-app y email listo para conectar tu proveedor.</span>
+    </li>
+  </ul>
+  <div class="analogy">
+    💡 <strong>En perspectiva:</strong> Normalmente este stack tarda entre 3 y 6 semanas en construirse desde cero. Con Hydra, tu equipo empieza a construir features de negocio desde el primer día.
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-icon">⚡</div>
+    <div class="step-meta">
+      <div class="step-num">Paso 6 de 6</div>
+      <div class="step-title">Siguiente paso: conectar tu aplicación</div>
+    </div>
+  </div>
+  <p>Hydra es la base de datos y la lógica de negocio. Tu frontend o backend se conecta al SQL igual que a cualquier PostgreSQL estándar.</p>
+  <p><strong>¿Qué hace tu dev a partir de aquí?</strong> Conecta tu framework favorito (Next.js, Django, Rails, Laravel…) a la base de datos usando la <code>DATABASE_URL</code> del <code>.env</code>. Todas las funciones de Hydra están disponibles como llamadas SQL normales.</p>
+  <div class="cta">
+    <div class="cta-title">🛠️ ¿Eres desarrollador?</div>
+    <p>Consulta la <a href="guide-dev.html">Guía técnica para desarrolladores →</a> con todos los comandos, scripts y smoke tests paso a paso.</p>
+  </div>
+  <div class="tip">
+    🔒 <strong>Convención de secretos:</strong> Las claves de Stripe, JWT y base de datos van en el <code>.env</code> local (nunca en el repositorio). En producción se configuran como variables de entorno en Railway, Render o Fly.io.
+  </div>
+</div>
+
+<hr class="divider">
+<footer>
+  <a href="https://github.com/RubenGZ/Start-up-Pack" target="_blank">GitHub</a> &nbsp;·&nbsp;
+  <a href="guide-dev.html">→ Versión para desarrolladores</a> &nbsp;·&nbsp;
+  Hydra Framework v1.1
+</footer>
+
+</body>
+</html>

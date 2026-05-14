@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydra Framework — Guía para desarrolladores</title>
+<style>
+  :root {
+    --bg: #080b10; --surface: #0d1117; --border: #1e2a38;
+    --accent: #00e5a0; --accent2: #3b82f6; --warn: #f59e0b;
+    --text: #c9d1d9; --muted: #4a5568; --dim: #2d3748;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px; line-height: 1.7; padding: 2rem; max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; color: var(--accent); margin-bottom: .25rem; }
+  .subtitle { color: var(--muted); font-size: .85rem; margin-bottom: 2.5rem; }
+  .step { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; }
+  .step-num { position: absolute; top: -1px; left: -1px; background: var(--accent); color: #000; font-weight: bold; font-size: .7rem; padding: .2rem .6rem; border-radius: 7px 0 6px 0; }
+  .step-title { font-size: 1rem; color: #fff; font-weight: bold; margin-bottom: .75rem; padding-left: .5rem; }
+  .step p { color: var(--text); font-size: .85rem; margin-bottom: .75rem; font-family: -apple-system, sans-serif; }
+  pre { background: #010409; border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: .75rem 0; position: relative; }
+  code { color: var(--accent); font-size: .82rem; font-family: 'SF Mono', 'Fira Code', monospace; }
+  pre code { color: #e6edf3; }
+  .comment { color: var(--muted); }
+  .cmd { color: var(--accent); }
+  .str { color: #a5d6ff; }
+  .flag { color: var(--warn); }
+  .copy-btn { position: absolute; top: .5rem; right: .5rem; background: var(--dim); border: none; color: var(--muted); font-size: .7rem; padding: .25rem .6rem; border-radius: 4px; cursor: pointer; font-family: monospace; }
+  .copy-btn:hover { background: var(--accent); color: #000; }
+  .tag { display: inline-block; font-size: .65rem; padding: .15rem .5rem; border-radius: 3px; margin-right: .3rem; font-weight: bold; }
+  .tag-req { background: #1e2a38; color: var(--muted); }
+  .tag-ok { background: #0d2818; color: var(--accent); }
+  .tag-opt { background: #1c1a08; color: var(--warn); }
+  .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: .75rem; }
+  .mod { background: #010409; border: 1px solid var(--border); border-radius: 5px; padding: .6rem .8rem; font-size: .78rem; }
+  .mod-name { color: var(--accent2); font-weight: bold; }
+  .mod-desc { color: var(--muted); font-size: .73rem; margin-top: .15rem; }
+  .result { background: #0d2818; border: 1px solid #1a4a2e; border-radius: 6px; padding: .75rem 1rem; margin-top: .75rem; font-size: .8rem; color: var(--accent); }
+  .result-label { color: var(--muted); font-size: .7rem; margin-bottom: .3rem; }
+  .tip { background: #1c1a08; border-left: 3px solid var(--warn); padding: .6rem .9rem; border-radius: 0 5px 5px 0; font-size: .8rem; color: #e8c97a; margin-top: .75rem; font-family: -apple-system, sans-serif; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  footer { color: var(--muted); font-size: .75rem; text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  a { color: var(--accent2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>Hydra Framework</h1>
+<p class="subtitle">Guía de inicio rápido · Perfil desarrollador · Stack: PostgreSQL · Docker · GitHub Actions</p>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-num">01</div>
+  <div class="step-title">Requisitos</div>
+  <p>Necesitas uno de estos dos entornos. Docker es la opción recomendada.</p>
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem">
+    <span class="tag tag-ok">✓ Docker Desktop 4+</span>
+    <span class="tag tag-req">o PostgreSQL ≥ 14 local</span>
+    <span class="tag tag-req">git</span>
+    <span class="tag tag-req">bash (Git Bash en Windows)</span>
+    <span class="tag tag-opt">jq (opcional — inject.sh)</span>
+  </div>
+  <div class="tip">En Windows: usa Git Bash o WSL para los scripts .sh. PowerShell no ejecuta bash nativo.</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-num">02</div>
+  <div class="step-title">Clonar y configurar credenciales</div>
+  <p>Clona el repo y crea tu archivo de entorno local. Nunca commits el .env.</p>
+  <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="cmd">git clone</span> https://github.com/RubenGZ/Start-up-Pack.git
+<span class="cmd">cd</span> Start-up-Pack
+
+<span class="comment"># Crear .env local (gitignored)</span>
+<span class="cmd">cp</span> .env.example .env</code></pre>
+  <p>Edita <code>.env</code> con tus valores:</p>
+  <pre><code>DATABASE_URL=<span class="str">postgres://hydra:tu_password@localhost:5432/hydra_dev</span>
+POSTGRES_PASSWORD=<span class="str">tu_password_seguro</span>
+JWT_SECRET=<span class="str">$(openssl rand -hex 32)</span>
+
+<span class="comment"># Solo si usas billing:</span>
+STRIPE_SECRET_KEY=<span class="str">&lt;desde dashboard.stripe.com&gt;</span>
+STRIPE_WEBHOOK_SECRET=<span class="str">&lt;desde dashboard.stripe.com/webhooks&gt;</span></code></pre>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-num">03</div>
+  <div class="step-title">Levantar la base de datos</div>
+  <p><strong>Con Docker</strong> (recomendado) — PostgreSQL 16 + pg_cron + migrations automáticas:</p>
+  <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="cmd">docker compose up -d</span>
+
+<span class="comment"># pgAdmin opcional:</span>
+<span class="cmd">docker compose</span> <span class="flag">--profile tools</span> up -d
+<span class="comment"># → abrir http://localhost:5050</span></code></pre>
+  <p><strong>Sin Docker</strong> — PostgreSQL local:</p>
+  <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="cmd">createdb</span> hydra_dev
+<span class="cmd">export</span> DATABASE_URL=<span class="str">"postgres://usuario:password@localhost:5432/hydra_dev"</span>
+<span class="cmd">bash</span> core/migrations/runner.sh</code></pre>
+  <div class="result">
+    <div class="result-label">Output esperado:</div>
+    === startup-pack migration runner ===<br>
+    → [0001] 0001_init ... OK<br>
+    → [0002] 0002_users ... OK<br>
+    ... (24 migrations aplicadas)
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-num">04</div>
+  <div class="step-title">Inyectar módulos para tu startup</div>
+  <p>Selecciona solo los módulos que necesitas. El resto no se copia a tu proyecto.</p>
+  <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="comment"># Inyección completa (todos los módulos)</span>
+<span class="cmd">bash</span> inject.sh <span class="flag">--reset</span> <span class="flag">--project=</span><span class="str">MiStartup</span>
+
+<span class="comment"># Inyección selectiva (recomendada)</span>
+<span class="cmd">bash</span> inject.sh <span class="flag">--reset</span> \
+  <span class="flag">--modules=</span><span class="str">auth,users,billing,health-base</span> \
+  <span class="flag">--project=</span><span class="str">MiStartup</span> \
+  <span class="flag">--no-oauth</span>   <span class="comment"># excluye Google OAuth si no lo necesitas</span></code></pre>
+  <div class="module-grid">
+    <div class="mod"><div class="mod-name">base</div><div class="mod-desc">UUID, pgcrypto, CITEXT, set_updated_at()</div></div>
+    <div class="mod"><div class="mod-name">auth</div><div class="mod-desc">Magic link, OAuth Google, sesiones</div></div>
+    <div class="mod"><div class="mod-name">users</div><div class="mod-desc">users, organizations, RBAC members</div></div>
+    <div class="mod"><div class="mod-name">billing</div><div class="mod-desc">Subscriptions, Stripe webhooks, portal</div></div>
+    <div class="mod"><div class="mod-name">health-base</div><div class="mod-desc">health_check() → JSON status</div></div>
+    <div class="mod"><div class="mod-name">rate-limit</div><div class="mod-desc">Sliding window por org/endpoint/plan</div></div>
+    <div class="mod"><div class="mod-name">audit</div><div class="mod-desc">Trigger universal → audit_log JSONB</div></div>
+    <div class="mod"><div class="mod-name">onboarding</div><div class="mod-desc">Progress multi-step + invitaciones</div></div>
+    <div class="mod"><div class="mod-name">notifications</div><div class="mod-desc">In-app + email queue + Slack</div></div>
+    <div class="mod"><div class="mod-name">api-keys</div><div class="mod-desc">hk_live_* prefix+hash, revoke, usage</div></div>
+    <div class="mod"><div class="mod-name">dashboard</div><div class="mod-desc">org_dashboard() — métricas JSONB</div></div>
+    <div class="mod"><div class="mod-name">seed</div><div class="mod-desc">Datos demo reproducibles (dev only)</div></div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="step-num">05</div>
+  <div class="step-title">Aplicar migrations y rollback</div>
+  <p>El runner aplica solo las migrations pendientes. Es idempotente.</p>
+  <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="comment"># Aplicar todas las migrations pendientes</span>
+<span class="cmd">bash</span> core/migrations/runner.sh
+
+<span class="comment"># Preview sin ejecutar</span>
+<span class="cmd">bash</span> core/migrations/runner.sh <span class="flag">--dry-run</span>
+
+<span class="comment"># Revertir hasta la versión N (exclusive)</span>
+<span class="cmd">bash</span> core/migrations/runner.sh <span class="flag">--rollback=</span><span class="str">18</span>
+<span class="comment"># → revierte 0024 → 0019 (deja 0018 aplicada)</span></code></pre>
+  <div class="tip">Cada migration tiene su down script en <code>core/migrations/sql/down/</code>. En producción: ejecutar rollback en ventana de mantenimiento con backup previo.</div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step">
+  <div class="step-num">06</div>
+  <div class="step-title">Verificar que todo funciona</div>
+  <p>Conecta al PostgreSQL y ejecuta los smoke tests básicos:</p>
+  <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="comment"># Conectar a la DB (Docker)</span>
+<span class="cmd">docker compose exec db</span> psql -U hydra -d hydra_dev
+
+<span class="comment">-- Smoke test 1: health check</span>
+SELECT health_check();
+<span class="comment">-- → {"status":"ok","version":"0024","timestamp":"..."}</span>
+
+<span class="comment">-- Smoke test 2: rate limiting activo</span>
+SELECT check_rate_limit(
+  <span class="str">'00000000-0000-0000-0000-000000000001'</span>::UUID,
+  <span class="str">'api/test'</span>
+)-><span class="str">'allowed'</span>;
+<span class="comment">-- → true</span>
+
+<span class="comment">-- Smoke test 3: dashboard por org</span>
+SELECT org_dashboard(
+  <span class="str">'00000000-0000-0000-0000-000000000001'</span>::UUID
+)-><span class="str">'billing'</span>;
+<span class="comment">-- → {"plan":"free","status":"active",...}</span></code></pre>
+</div>
+
+<!-- STEP 7 -->
+<div class="step">
+  <div class="step-num">07</div>
+  <div class="step-title">Adaptar a tu startup</div>
+  <p>Cuando quieras reutilizar Hydra para un nuevo proyecto, usa el flujo ADAPTAR A:</p>
+  <pre><button class="copy-btn" onclick="copy(this)">copiar</button><code><span class="comment"># Reset + inyectar módulos de tu nueva startup</span>
+<span class="cmd">bash</span> inject.sh <span class="flag">--reset</span> \
+  <span class="flag">--modules=</span><span class="str">auth,users,billing,health-base,audit</span> \
+  <span class="flag">--project=</span><span class="str">NuevaStartup</span>
+
+<span class="comment"># Aplicar a la DB</span>
+<span class="cmd">bash</span> core/migrations/runner.sh
+
+<span class="comment"># active_project/ ahora tiene solo los módulos de NuevaStartup</span>
+<span class="cmd">cat</span> active_project/blueprints.json</code></pre>
+  <div class="tip">
+    <strong>Convención de credenciales:</strong><br>
+    Local → <code>.env</code> (gitignored) &nbsp;·&nbsp;
+    CI → dummy hardcoded &nbsp;·&nbsp;
+    Staging/Prod → variables en Railway / Render / Fly.io. Nunca secrets en el repo.
+  </div>
+</div>
+
+<hr class="divider">
+<footer>
+  <a href="https://github.com/RubenGZ/Start-up-Pack" target="_blank">GitHub</a> &nbsp;·&nbsp;
+  <a href="guide-founder.html">→ Versión para founders</a> &nbsp;·&nbsp;
+  Hydra Framework v1.1
+</footer>
+
+<script>
+function copy(btn) {
+  const code = btn.parentElement.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = '✓ copiado';
+    setTimeout(() => btn.textContent = 'copiar', 1500);
+  });
+}
+</script>
+</body>
+</html>

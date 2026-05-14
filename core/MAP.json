@@ -24,9 +24,9 @@
         },
         "auth": {
           "path": "blueprints/auth/",
-          "files": ["auth.service.sql", "auth.flow.sql", "oauth.service.sql"],
+          "files": ["auth.service.sql", "auth.flow.sql", "auth.context.sql", "oauth.service.sql"],
           "status": "stable",
-          "migrations": ["0005_auth.sql", "0006_oauth.sql"]
+          "migrations": ["0005_auth.sql", "0006_oauth.sql", "0014_auth_context.sql"]
         },
         "users": {
           "path": "blueprints/users/",

@@ -497,11 +497,16 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">10 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">11 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-10</span>
+            <span class="log-text">auth.context.sql — get_session_context() + complete_signup() + set_session_context() + revoke_all_sessions()</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-hydra">AUDIT</span>
             <span class="log-text">Remediation completa — inject.sh, runner.sh, health_sweep, CI integration-test, cleanup 0013, log_append anchor, backlog</span>

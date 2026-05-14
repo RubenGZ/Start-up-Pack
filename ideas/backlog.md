@@ -17,7 +17,7 @@
 - [x] Logs estructurados (JSON) — `blueprints/audit/audit.sql` (SUP-9)
 - [ ] Integration tests en CI (PostgreSQL real) — CI job `integration-test`
 - [ ] Rollback strategy para migrations (down scripts)
-- [ ] pg_cron scheduler para cleanup_expired_auth() y cleanup_rate_limit_counters()
+- [x] pg_cron scheduler para cleanup_expired_auth() y cleanup_rate_limit_counters() — `0018_pg_cron.sql` (SUP-14)
 - [ ] Particionado de audit_log por mes (cuando volumen > 1M rows)
 
 ## Integraciones

@@ -265,8 +265,8 @@
   </div>
   <div class="stat blue">
     <div class="stat-label">Migrations</div>
-    <div class="stat-value">17</div>
-    <div class="stat-sub">0001 → 0017 · secuencia completa</div>
+    <div class="stat-value">18</div>
+    <div class="stat-sub">0001 → 0018 · secuencia completa</div>
   </div>
   <div class="stat purple">
     <div class="stat-label">CI/CD Jobs</div>
@@ -398,7 +398,7 @@
           <tr>
             <td style="padding-left:1.25rem">
               <div class="mod-name">core/migrations</div>
-              <div class="mod-path">core/migrations/ — runner.sh + 17 sql versionadas</div>
+              <div class="mod-path">core/migrations/ — runner.sh + 18 sql versionadas</div>
             </td>
             <td style="color:var(--muted);font-size:.7rem">Infra</td>
             <td><span class="status-pill s-done"><span class="s-dot"></span>stable</span></td>
@@ -456,7 +456,7 @@
           <div class="rm-icon rm-done">✅</div>
           <div style="flex:1">
             <div class="rm-label">DB Migrations</div>
-            <div class="rm-sub">versioned runner + 17 migrations</div>
+            <div class="rm-sub">versioned runner + 18 migrations</div>
           </div>
           <div class="rm-id">SUP-5</div>
         </div>
@@ -507,11 +507,16 @@
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">Atomic log</span>
-        <span style="color:var(--muted);font-size:.7rem">15 entradas</span>
+        <span style="color:var(--muted);font-size:.7rem">16 entradas</span>
       </div>
       <div class="panel-body">
         <ul class="log-list">
           <!-- LOG_INSERT -->
+          <li class="log-item">
+            <span class="log-tag tag-sup5">SUP-14</span>
+            <span class="log-text">0018_pg_cron.sql — hydra-cleanup-hourly + hydra-invites-daily + hydra-audit-weekly (3 jobs)</span>
+            <span class="log-ts">2026-05-14</span>
+          </li>
           <li class="log-item">
             <span class="log-tag tag-sup5">SUP-13</span>
             <span class="log-text">member_management.sql — list_org_members() + remove_member() + change_member_role() + transfer_ownership() (192L)</span>

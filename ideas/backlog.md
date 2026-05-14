@@ -10,7 +10,7 @@
 
 ## Infraestructura
 - [x] CI/CD pipeline (GitHub Actions) — `ci.yml` + `notify.yml`
-- [x] Migraciones DB con versioning — `runner.sh` + 18 sql versionadas
+- [x] Migraciones DB con versioning — `runner.sh` + 20 sql versionadas
 - [x] Seed data para desarrollo local — `blueprints/seed/seed.sql` (SUP-7)
 - [x] Health check endpoint `/health` — `blueprints/health-base/health.sql` (SUP-6)
 - [x] Rate limiting por org — `blueprints/rate-limit/` + cleanup (SUP-8)

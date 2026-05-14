@@ -1,5 +1,5 @@
 {
-  "project": "Hydra",
-  "injected_at": "2026-05-14T11:57:05Z",
-  "modules": ["base","auth","users","billing","health-base","seed","rate-limit","audit","onboarding","notifications","api-keys","utils"]
+  "project": "HealthStack_Pro",
+  "injected_at": "2026-05-14T12:15:03Z",
+  "modules": ["auth","users","billing","health-base"]
 }

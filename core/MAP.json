@@ -36,9 +36,9 @@
         },
         "billing": {
           "path": "blueprints/billing/",
-          "files": ["003_subscriptions.sql", "billing.service.sql"],
+          "files": ["003_subscriptions.sql", "billing.service.sql", "stripe.webhooks.sql"],
           "status": "stable",
-          "migrations": ["0004_subscriptions.sql", "0007_billing.sql"]
+          "migrations": ["0004_subscriptions.sql", "0007_billing.sql", "0016_stripe_webhooks.sql"]
         },
         "health-base": {
           "path": "blueprints/health-base/",

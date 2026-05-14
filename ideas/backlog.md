@@ -21,7 +21,7 @@
 - [ ] Particionado de audit_log por mes (cuando volumen > 1M rows)
 
 ## Integraciones
-- [ ] Stripe webhooks handler
+- [x] Stripe webhooks handler — `blueprints/billing/stripe.webhooks.sql` (SUP-12)
 - [ ] Slack notifications outbound
 - [ ] Linear sync bidireccional
 

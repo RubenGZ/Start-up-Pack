@@ -69,7 +69,8 @@ jobs:
                    core/migrations/runner.sh \
                    blueprints/base/000_init.sql blueprints/base/004_schema_versions.sql \
                    blueprints/auth/auth.flow.sql blueprints/auth/oauth.service.sql \
-                   blueprints/users/001_users.sql blueprints/billing/billing.service.sql \
+                   blueprints/users/001_users.sql \
+                   blueprints/billing/billing.service.sql blueprints/billing/stripe.webhooks.sql \
                    blueprints/health-base/health.sql \
                    blueprints/seed/seed.sql \
                    blueprints/rate-limit/rate_limit.sql \

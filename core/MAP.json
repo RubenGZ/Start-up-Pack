@@ -70,6 +70,12 @@
           "status": "stable",
           "migrations": ["0015_onboarding.sql"]
         },
+        "api-keys": {
+          "path": "blueprints/api-keys/",
+          "files": ["api_keys.sql"],
+          "status": "stable",
+          "migrations": ["0020_api_keys.sql"]
+        },
         "notifications": {
           "path": "blueprints/notifications/",
           "files": ["notifications.sql"],

@@ -27,6 +27,6 @@
 - [ ] Linear sync bidireccional
 
 ## Ideas futuras
-- [ ] API pública con API keys por org
+- [x] API pública con API keys por org — `blueprints/api-keys/api_keys.sql` (SUP-17)
 - [ ] White-label support
 - [ ] Analytics de uso por plan

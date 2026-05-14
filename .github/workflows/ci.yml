@@ -78,6 +78,7 @@ jobs:
                    blueprints/audit/audit.sql \
                    blueprints/onboarding/onboarding.sql \
                    blueprints/notifications/notifications.sql \
+                   blueprints/api-keys/api_keys.sql \
                    blueprints/auth/auth.service.sql blueprints/auth/auth.context.sql \
                    blueprints/utils/helpers.sql \
                    active_project/blueprints.json \
